@@ -11,8 +11,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdk.version>1.8</jdk.version>
         <!-- 本地lib路径-->
-        <system.lib.dir>/Users/andrew_asa/Documents/code/github/andrew-asa/lib</system.lib.dir>
+        <!--<system.lib.dir>/Users/andrew_asa/Documents/code/github/andrew-asa/lib</system.lib.dir>-->
+        <!--系统maven仓库地址-->
+        <system.maven.dir>file:/Users/andrew_asa/Documents/code/github/andrew-asa/maven-repository/</system.maven.dir>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>andrew.asa-maven-repository</id>
+            <url>https://raw.githubusercontent.com/andrew-asa/maven-repository/master/repository</url>
+        </repository>
+    </repositories>
 
     <dependencies>
 
@@ -23,13 +32,20 @@
         </dependency>
 
         <!-- 本地依赖-->
+        <!--<dependency>-->
+        <!--<groupId>com.asa</groupId>-->
+        <!--<artifactId>com.asa.third</artifactId>-->
+        <!--<version>1.0.0-SNAPSHORT</version>-->
+        <!--<scope>system</scope>-->
+        <!--<systemPath>${system.lib.dir}/com.asa.third-1.0-SNAPSHOT.jar</systemPath>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>com.asa</groupId>
             <artifactId>com.asa.third</artifactId>
-            <version>1.0.0-SNAPSHORT</version>
-            <scope>system</scope>
-            <systemPath>${system.lib.dir}/com.asa.third-1.0-SNAPSHOT.jar</systemPath>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -59,5 +75,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>andrew.asa-maven-repository</id>
+            <url>${system.maven.dir}</url>
+        </repository>
+    </distributionManagement>
 
 </project>

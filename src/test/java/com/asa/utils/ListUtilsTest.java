@@ -13,6 +13,16 @@ import java.util.ArrayList;
 public class ListUtilsTest {
 
     @Test
+    public void arrayToList() throws Exception {
+
+    }
+
+    @Test
+    public void contain() throws Exception {
+
+    }
+
+    @Test
     public void length() throws Exception {
 
         Assert.assertEquals(1, ListUtils.length(ArrayUtils.arrayToList(new String[]{"a"})));
