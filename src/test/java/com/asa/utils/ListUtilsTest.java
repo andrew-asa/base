@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author andrew_asa
@@ -13,13 +14,12 @@ import java.util.ArrayList;
 public class ListUtilsTest {
 
     @Test
-    public void arrayToList() throws Exception {
-
-    }
-
-    @Test
     public void contain() throws Exception {
 
+        List<String> list = ArrayUtils.arrayToList(new String[]{"a"});
+        Assert.assertTrue(ListUtils.contain(list, "a"));
+        Assert.assertFalse(ListUtils.contain(list, "b"));
+        Assert.assertFalse(ListUtils.contain(null, "b"));
     }
 
     @Test
@@ -38,15 +38,5 @@ public class ListUtilsTest {
         Assert.assertFalse(ListUtils.isNotEmpty(null));
         Assert.assertFalse(ListUtils.isNotEmpty(new ArrayList()));
         Assert.assertTrue(ListUtils.isNotEmpty(ArrayUtils.arrayToList(new String[]{"a"})));
-    }
-
-    @Test
-    public void isNotEmpty() throws Exception {
-
-    }
-
-    @Test
-    public void putIfAbsent() throws Exception {
-
     }
 }

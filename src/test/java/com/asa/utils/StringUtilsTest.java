@@ -11,12 +11,13 @@ public class StringUtilsTest {
 
     @Test
     public void isEmpty() throws Exception {
-
-    }
-
-    @Test
-    public void isNotEmpty() throws Exception {
-
+        String fs = "abs{}ccc";
+        Assert.assertTrue(StringUtils.isEmpty(null));
+        Assert.assertTrue(StringUtils.isEmpty(""));
+        Assert.assertFalse(StringUtils.isNotEmpty(null));
+        Assert.assertFalse(StringUtils.isNotEmpty(""));
+        Assert.assertFalse(StringUtils.isEmpty(fs));
+        Assert.assertTrue(StringUtils.isNotEmpty(fs));
     }
 
     @Test

@@ -9,6 +9,8 @@ import com.asa.log.MessageFormatter;
  */
 public class StringUtils {
 
+    public static String EMPTY = "";
+
     /**
      * 克隆
      *
