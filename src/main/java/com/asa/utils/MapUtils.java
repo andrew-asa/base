@@ -83,4 +83,12 @@ public class MapUtils {
         }
         return null;
     }
+
+    public static <K, V> V safeAddToMap(Map<K, V> map, K key, V value) throws NullPointerException {
+
+        if (map != null && key != null && value != null) {
+            return map.put(key, value);
+        }
+        return null;
+    }
 }

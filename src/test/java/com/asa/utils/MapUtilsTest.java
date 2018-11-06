@@ -14,6 +14,19 @@ import java.util.Map;
 public class MapUtilsTest {
 
     @Test
+    public void safeAddToMap() throws Exception {
+
+        Map<String, String> m = null;
+        MapUtils.safeAddToMap(m, "d", "vv");
+        m = new HashMap<>();
+        MapUtils.safeAddToMap(m, "d", "vv");
+        MapUtils.safeAddToMap(m, "d", null);
+        Assert.assertNull(MapUtils.safeAddToMap(m, null, null));
+        String old = MapUtils.safeAddToMap(m, "d", "vb");
+        Assert.assertEquals(old, "vv");
+    }
+
+    @Test
     public void isEmptyMap() throws Exception {
 
         Assert.assertTrue(MapUtils.isEmptyMap(null));
