@@ -84,6 +84,17 @@ public class MapUtils {
         return null;
     }
 
+    /**
+     * 安全添加到map里面
+     *
+     * @param map
+     * @param key
+     * @param value
+     * @param <K>
+     * @param <V>
+     * @return
+     * @throws NullPointerException
+     */
     public static <K, V> V safeAddToMap(Map<K, V> map, K key, V value) throws NullPointerException {
 
         if (map != null && key != null && value != null) {
