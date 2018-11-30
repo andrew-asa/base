@@ -78,10 +78,25 @@ public class MapUtils {
      */
     public static <K, V> V get(Map<K, V> map, K key) {
 
+        return get(map, key, null);
+    }
+
+    /**
+     * 获取某个元素，没有则进行返回
+     *
+     * @param map
+     * @param key
+     * @param defaultValue
+     * @param <K>
+     * @param <V>
+     * @return
+     */
+    public static <K, V> V get(Map<K, V> map, K key, V defaultValue) {
+
         if (isNotEmptyMap(map) && key != null) {
             return map.get(key);
         }
-        return null;
+        return defaultValue;
     }
 
     /**

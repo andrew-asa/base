@@ -9,7 +9,7 @@ import java.util.Map;
  * @date 2018/11/22.
  * 抽象异常时异常
  */
-public class AbstractRunTimeException extends RuntimeException implements ExceptionMessage {
+public class AbstractRuntimeException extends RuntimeException implements ExceptionMessage {
 
     private String errorCode;
 
@@ -17,7 +17,11 @@ public class AbstractRunTimeException extends RuntimeException implements Except
 
     private Map<Object, Object> attribute;
 
-    public AbstractRunTimeException(String errorCode, String errorMessage) {
+    public AbstractRuntimeException() {
+
+    }
+
+    public AbstractRuntimeException(String errorCode, String errorMessage) {
 
         super(errorMessage);
         this.errorCode = errorCode;

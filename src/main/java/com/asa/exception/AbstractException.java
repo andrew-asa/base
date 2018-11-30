@@ -17,6 +17,10 @@ public class AbstractException extends Exception implements ExceptionMessage {
 
     private Map<Object, Object> attribute;
 
+    public AbstractException() {
+
+    }
+
     public AbstractException(String errorCode, String message) {
 
         super(message);

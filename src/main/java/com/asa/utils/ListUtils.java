@@ -3,6 +3,9 @@ package com.asa.utils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @author andrew_asa
@@ -10,11 +13,23 @@ import java.util.List;
  */
 public class ListUtils {
 
+    /**
+     * 是否为空
+     *
+     * @param list
+     * @return
+     */
     public static boolean isEmpty(List list) {
 
         return list == null || list.isEmpty();
     }
 
+    /**
+     * 非空
+     *
+     * @param list
+     * @return
+     */
     public static boolean isNotEmpty(List list) {
 
         return list != null && !list.isEmpty();
@@ -25,11 +40,25 @@ public class ListUtils {
      *
      * @param list
      * @param e
-     * @param <E>
+     * @param <T>
      */
-    public static <E> void putIfAbsent(Collection<E> list, E e) {
+    public static <T> void putIfAbsent(Collection<T> list, T e) {
 
         if (list != null && e != null && !list.contains(e)) {
+            list.add(e);
+        }
+    }
+
+    /**
+     * 安全添加
+     *
+     * @param list
+     * @param e
+     * @param <T>
+     */
+    public static <T> void safeAdd(Collection<T> list, T e) {
+
+        if (list != null && e != null) {
             list.add(e);
         }
     }
@@ -83,14 +112,58 @@ public class ListUtils {
      * 确保list 不为null对象
      *
      * @param list
-     * @param <E>
+     * @param <T>
      * @return
      */
-    public static <E> List<E> ensureNotNull(List<E> list) {
+    public static <T> List<T> ensureNotNull(List<T> list) {
 
         if (list == null) {
-            return new ArrayList<E>();
+            return new ArrayList<T>();
         }
         return list;
+    }
+
+    /**
+     * 删除元素
+     *
+     * @param list
+     * @param item
+     * @param <T>
+     */
+    public static <T> void remove(List<T> list, T item) {
+
+        if (list != null && item != null) {
+            list.remove(item);
+        }
+    }
+
+    /**
+     * 遍历主要是防止判空的情况
+     *
+     * @param list
+     * @param action
+     * @param <T>
+     */
+    public static <T> void forEach(List<T> list, Consumer<? super T> action) {
+
+        if (ListUtils.isNotEmpty(list)) {
+            list.forEach(action);
+        }
+    }
+
+    /**
+     * 过滤
+     *
+     * @param list
+     * @param predicate
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> filterAsList(List<T> list, Predicate<? super T> predicate) {
+
+        if (ListUtils.isNotEmpty(list)) {
+            return list.stream().filter(predicate).collect(Collectors.toList());
+        }
+        return new ArrayList<T>();
     }
 }
