@@ -49,6 +49,7 @@ public class ListUtils {
         }
     }
 
+
     /**
      * 安全添加
      *
@@ -62,6 +63,16 @@ public class ListUtils {
             list.add(e);
         }
     }
+
+    public static <T> void safeAdd(Collection<T> list, Collection<T> collection) {
+
+        if (list != null && collection != null) {
+            for (T c : collection) {
+                list.add(c);
+            }
+        }
+    }
+
 
     /**
      * list 的长度
