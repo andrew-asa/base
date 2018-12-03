@@ -95,4 +95,53 @@ public class StringUtils {
         }
         return str1.equalsIgnoreCase(str2);
     }
+
+    /**
+     * 忽略大小写，是否包含
+     *
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public static boolean containsIgnoreCase(String str1, String str2) {
+
+        if (str1 == null && str2 == null) {
+            return true;
+        }
+        if (str1 == null || str2 == null) {
+            return false;
+        }
+        String t1 = str1.toLowerCase();
+        String t2 = str2.toLowerCase();
+        return t1.contains(t2);
+    }
+
+    /**
+     * 字符串长度
+     *
+     * @param string
+     * @return
+     */
+    public static int length(String string) {
+
+        if (isEmpty(string)) {
+            return 0;
+        }
+        return string.length();
+    }
+
+    /**
+     * 是否是以prefix作为前缀
+     *
+     * @param str
+     * @param prefix
+     * @return
+     */
+    public static boolean startsWith(String str, String prefix) {
+
+        if (str == null || prefix == null) {
+            return false;
+        }
+        return str.startsWith(prefix);
+    }
 }
