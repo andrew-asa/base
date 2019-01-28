@@ -3,9 +3,13 @@ package com.asa.utils;
 import com.asa.log.FormattingTuple;
 import com.asa.log.MessageFormatter;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 /**
  * @author andrew_asa
  * @date 2018/10/14.
+ * 处理输出为string | 输入为string的相关工具类
  */
 public class StringUtils {
 
@@ -143,5 +147,125 @@ public class StringUtils {
             return false;
         }
         return str.startsWith(prefix);
+    }
+
+    /**
+     * 将一个集合中的元素按照给定的连接符连接成一个字符串
+     *
+     * @param c  集合
+     * @param se 连接符
+     * @return 连接后的字符串
+     */
+    public static String join(Collection c, String se) {
+
+        if (c != null && c.size() > 0) {
+            if (se == null) {
+                se = StringUtils.EMPTY;
+            }
+            StringBuffer sb = new StringBuffer();
+            java.util.Iterator it = c.iterator();
+            while (it.hasNext()) {
+                Object o = it.next();
+                sb.append(o);
+                if (it.hasNext()) {
+                    sb.append(se);
+                }
+            }
+            return sb.toString();
+        } else {
+            return StringUtils.EMPTY;
+        }
+    }
+
+    /**
+     * 将一个数组中的元素按照给定的连接符连接成一个字符串
+     *
+     * @param array 数组
+     * @param se    连接符
+     * @return 连接后的字符串
+     */
+    public static String join(Object[] array, String se) {
+
+        return join(Arrays.asList(array), se);
+    }
+
+    /**
+     * 将一个数组中的元素用空字符连接成一个字符串
+     *
+     * @param array 数组
+     * @return 连接后的字符串
+     */
+    public static String join(Object[] array) {
+
+        return join(array, StringUtils.EMPTY);
+    }
+
+    /**
+     * 将一个集合中的元素用空字符连接成一个字符串
+     *
+     * @param c 集合
+     * @return 连接后的字符串
+     */
+    public static String join(Collection c) {
+
+        return join(c, StringUtils.EMPTY);
+    }
+
+    /**
+     * 分割
+     *
+     * @param str
+     * @param sp
+     * @return
+     */
+    public static String[] split(String str, String sp) {
+
+        if (isNotEmpty(str)) {
+            return str.split(sp);
+        }
+        return new String[0];
+    }
+
+    /**
+     * 以空格分割
+     *
+     * @param str
+     * @return
+     */
+    public static String[] splitWithBlank(String str) {
+
+        return split(str, "\\s+");
+    }
+
+    /**
+     * 空格分割并安全的进行获取第index个原始，如果没有则返回默认值
+     *
+     * @param str
+     * @param index
+     * @param defaultValue
+     * @return
+     */
+    public static String splitWithBlankAndSafeGetItem(String str, int index, String defaultValue) {
+
+        String[] items = splitWithBlank(str);
+        if (items.length > index) {
+            return items[index];
+        }
+        return defaultValue;
+    }
+
+    public static String[] splitWithBlankAndSafeGetItem(String str, String defaultValue, int... inx) {
+
+        String[] items = splitWithBlank(str);
+        String[] ret = new String[inx.length];
+        for (int i = 0; i < inx.length; i++) {
+            int index = inx[i];
+            if (items.length > index) {
+                ret[i] = items[index];
+            } else {
+                ret[i] = defaultValue;
+            }
+        }
+        return ret;
     }
 }
