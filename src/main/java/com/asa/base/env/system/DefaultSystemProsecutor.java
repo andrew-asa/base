@@ -10,7 +10,9 @@ import com.asa.utils.ListUtils;
 import com.asa.utils.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -116,5 +118,11 @@ public class DefaultSystemProsecutor implements SystemProsecutor {
             info.setPath(s.trim());
         }
         return info;
+    }
+
+    @Override
+    public Map<String, String> getSystemProperties() {
+
+        return new HashMap<>();
     }
 }

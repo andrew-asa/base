@@ -6,6 +6,7 @@ import com.asa.base.env.system.info.PortInfo;
 import com.asa.base.env.system.info.ServiceInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author andrew_asa
@@ -60,4 +61,11 @@ public interface SystemProsecutor {
      * @return
      */
     CommandInfo commandInfo(String cmd);
+
+    /**
+     * 获取特定属性
+     *
+     * @return
+     */
+    Map<String, String> getSystemProperties();
 }

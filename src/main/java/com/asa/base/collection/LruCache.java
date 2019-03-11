@@ -1,4 +1,4 @@
-package com.asa.utils;
+package com.asa.base.collection;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
