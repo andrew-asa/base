@@ -1,4 +1,8 @@
-package com.asa.utils;
+package com.asa.service.properties;
+
+import com.asa.api.PropertiesHandler;
+import com.asa.utils.ListUtils;
+import com.asa.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +12,19 @@ import java.util.Properties;
  * @author andrew_asa
  * @date 2019/1/23.
  */
-public class PropertiesHandler {
+public class DefaultPropertiesHandler implements PropertiesHandler {
 
     private Properties properties;
 
-    public PropertiesHandler(Properties properties) {
+    public DefaultPropertiesHandler(Properties properties) {
 
         this.properties = properties;
+    }
+
+    @Override
+    public boolean containKey(String key) {
+
+        return properties.containsKey(key);
     }
 
     /**

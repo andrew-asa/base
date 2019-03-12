@@ -25,7 +25,7 @@ public class LinuxProsecutor extends DefaultSystemProsecutor {
     public Map<String, String> getSystemProperties() {
         // selinux sftp 检测
         Map<String, String> ret = new HashMap<String, String>();
-        List<String> infos = Shell.getInstance().execStrList("getsebool -a | grep ftpd");
+        List<String> infos = Shell.getInstance().execPipelineStrList("getsebool -a | grep ftpd");
         for (String info : infos) {
             if (StringUtils.containsIgnoreCase(info, "-->")) {
                 String[] is = info.split("-->");
