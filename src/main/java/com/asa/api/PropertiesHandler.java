@@ -44,6 +44,23 @@ public interface PropertiesHandler {
     double getDouble(String key, double defaultValue);
 
     /**
+     * 获取字符串值
+     *
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    String getValue(String key, String defaultValue);
+
+    /**
+     * 获取字符串值，没有就返回""
+     *
+     * @param key
+     * @return
+     */
+    String getValue(String key);
+
+    /**
      * 获取string类型的数组，以regex分割
      *
      * @param key

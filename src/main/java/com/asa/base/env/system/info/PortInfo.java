@@ -1,5 +1,7 @@
 package com.asa.base.env.system.info;
 
+import com.asa.utils.AssistUtils;
+
 /**
  * @author andrew_asa
  * @date 2019/1/23.
@@ -47,5 +49,11 @@ public class PortInfo {
     public void setPid(String pid) {
 
         this.pid = pid;
+    }
+
+    @Override
+    public String toString() {
+
+        return "{port={" + port + "},pid={" + pid + "}}";
     }
 }

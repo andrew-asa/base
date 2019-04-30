@@ -6,6 +6,8 @@ import com.asa.base.env.system.SystemProsecutor;
 import com.asa.base.env.system.WindowProsecutor;
 import com.asa.third.org.apache.commons.lang3.SystemUtils;
 
+import java.math.MathContext;
+
 /**
  * @author andrew_asa
  * @date 2019/1/28.
@@ -13,6 +15,12 @@ import com.asa.third.org.apache.commons.lang3.SystemUtils;
 public class SystemEnvService {
 
     private static SystemEnvService INSTANCE = new SystemEnvService();
+
+    private SystemProsecutor mac;
+
+    private SystemProsecutor linux;
+
+    private SystemProsecutor window;
 
     private SystemEnvService() {
 
@@ -26,11 +34,20 @@ public class SystemEnvService {
     public SystemProsecutor getSystemProsecutor() {
 
         if (SystemUtils.IS_OS_WINDOWS) {
-            return new WindowProsecutor();
+            if (window == null) {
+                window = new WindowProsecutor();
+            }
+            return window;
         } else if (SystemUtils.IS_OS_MAC) {
-            return new MacProsecutor();
+            if (mac == null) {
+                mac = new MacProsecutor();
+            }
+            return mac;
         } else {
-            return new LinuxProsecutor();
+            if (linux == null) {
+                linux = new LinuxProsecutor();
+            }
+            return linux;
         }
     }
 }

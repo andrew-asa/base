@@ -1,5 +1,6 @@
 package com.asa.utils;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -40,7 +41,7 @@ public class MapUtils {
      * @param <V>
      * @return
      */
-    public static <K, V> boolean contains(Map<K, V> map, K key) {
+    public static <K, V> boolean containsKey(Map<K, V> map, K key) {
 
         if (map != null) {
             return map.containsKey(key);
@@ -116,5 +117,32 @@ public class MapUtils {
             return map.put(key, value);
         }
         return null;
+    }
+
+    /**
+     * @param contain
+     * @param map
+     * @param <K>
+     * @param <V>
+     * @return
+     * @throws NullPointerException
+     */
+    public static <K, V> void safeAddToMap(Map<K, V> contain, Map<K, V> map) throws NullPointerException {
+
+        if (map != null && contain != null) {
+            contain.putAll(map);
+        }
+    }
+
+    public static <K, V> Map<K, V> createMap(K key, V value) {
+
+        Map<K, V> ret = new HashMap<>();
+        safeAddToMap(ret, key, value);
+        return ret;
+    }
+
+    public static <K, V> Map<K, V> createEmptyMap() {
+
+        return new HashMap<K, V>();
     }
 }

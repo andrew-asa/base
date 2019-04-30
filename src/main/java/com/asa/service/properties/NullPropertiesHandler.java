@@ -1,6 +1,7 @@
 package com.asa.service.properties;
 
 import com.asa.api.PropertiesHandler;
+import com.asa.utils.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +34,18 @@ public class NullPropertiesHandler implements PropertiesHandler {
     public double getDouble(String key, double defaultValue) {
 
         return 0;
+    }
+
+    @Override
+    public String getValue(String key, String defaultValue) {
+
+        return defaultValue;
+    }
+
+    @Override
+    public String getValue(String key) {
+
+        return StringUtils.EMPTY;
     }
 
     @Override

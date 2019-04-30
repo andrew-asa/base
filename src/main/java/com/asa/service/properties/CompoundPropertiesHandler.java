@@ -1,6 +1,7 @@
 package com.asa.service.properties;
 
 import com.asa.api.PropertiesHandler;
+import com.asa.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,6 +70,28 @@ public class CompoundPropertiesHandler implements PropertiesHandler {
             }
         }
         return defaultValue;
+    }
+
+    @Override
+    public String getValue(String key, String defaultValue) {
+
+        for (PropertiesHandler handler : handlers) {
+            if (handler.containKey(key)) {
+                return handler.getValue(key, defaultValue);
+            }
+        }
+        return defaultValue;
+    }
+
+    @Override
+    public String getValue(String key) {
+
+        for (PropertiesHandler handler : handlers) {
+            if (handler.containKey(key)) {
+                return handler.getValue(key);
+            }
+        }
+        return StringUtils.EMPTY;
     }
 
     @Override

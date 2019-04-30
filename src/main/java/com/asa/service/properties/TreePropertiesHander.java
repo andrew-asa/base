@@ -1,6 +1,7 @@
 package com.asa.service.properties;
 
 import com.asa.api.PropertiesHandler;
+import com.asa.utils.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -58,6 +59,23 @@ public class TreePropertiesHander implements PropertiesHandler {
             return father.getDouble(key, defaultValue);
         }
         return defaultValue;
+    }
+
+    @Override
+    public String getValue(String key, String defaultValue) {
+
+        if (child.containKey(key)) {
+            return child.getValue(key, defaultValue);
+        } else if (father.containKey(key)) {
+            return father.getValue(key, defaultValue);
+        }
+        return defaultValue;
+    }
+
+    @Override
+    public String getValue(String key) {
+
+        return getValue(key, StringUtils.EMPTY);
     }
 
     @Override

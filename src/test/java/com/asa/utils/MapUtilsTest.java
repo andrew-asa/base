@@ -13,6 +13,17 @@ import java.util.Map;
  */
 public class MapUtilsTest {
 
+
+    @Test
+    public void safeAddToMap2() throws Exception {
+
+        Map<String, String> map = MapUtils.createMap("a", "b");
+        MapUtils.safeAddToMap(map, null);
+        Assert.assertEquals(map.size(), 1);
+        MapUtils.safeAddToMap(map, MapUtils.createMap("b", "c"));
+        Assert.assertTrue(MapUtils.containsKey(map, "b"));
+    }
+
     @Test
     public void safeAddToMap() throws Exception {
 
@@ -42,10 +53,10 @@ public class MapUtilsTest {
     public void contains() throws Exception {
 
         Map<String, String> map = new HashMap<>();
-        Assert.assertFalse(MapUtils.contains(map, "2"));
-        Assert.assertFalse(MapUtils.contains(null, "2"));
+        Assert.assertFalse(MapUtils.containsKey(map, "2"));
+        Assert.assertFalse(MapUtils.containsKey(null, "2"));
         map.put("l", "2");
-        Assert.assertTrue(MapUtils.contains(map, "l"));
+        Assert.assertTrue(MapUtils.containsKey(map, "l"));
     }
 
     @Test

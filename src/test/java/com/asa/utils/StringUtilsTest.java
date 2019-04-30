@@ -12,6 +12,17 @@ import java.util.List;
 public class StringUtilsTest {
 
     @Test
+    public void equals() throws Exception {
+
+        Assert.assertTrue(StringUtils.equals("a", "a"));
+        Assert.assertFalse(StringUtils.equals("a", "A"));
+        Assert.assertFalse(StringUtils.equals(null, "A"));
+        Assert.assertTrue(StringUtils.equals(null, null));
+        Assert.assertTrue(StringUtils.equals("aBa", "aBa"));
+        Assert.assertFalse(StringUtils.equals("aba", "aBa"));
+    }
+
+    @Test
     public void splitWithBlankAndSafeGetItem1() throws Exception {
 
         String[] ret = StringUtils.splitWithBlankAndSafeGetItem("abc cd ddd   e3ee", "dv", 0, 2, 3, 5);

@@ -34,6 +34,7 @@ public class DefaultPropertiesHandler implements PropertiesHandler {
      * @param defaultValue
      * @return
      */
+    @Override
     public long getLong(String key, long defaultValue) {
 
         if (properties.containsKey(key)) {
@@ -52,6 +53,7 @@ public class DefaultPropertiesHandler implements PropertiesHandler {
      * @param defaultValue
      * @return
      */
+    @Override
     public int getInt(String key, int defaultValue) {
 
         if (properties.containsKey(key)) {
@@ -70,6 +72,7 @@ public class DefaultPropertiesHandler implements PropertiesHandler {
      * @param defaultValue
      * @return
      */
+    @Override
     public double getDouble(String key, double defaultValue) {
 
         if (properties.containsKey(key)) {
@@ -81,6 +84,22 @@ public class DefaultPropertiesHandler implements PropertiesHandler {
         return defaultValue;
     }
 
+    @Override
+    public String getValue(String key, String defaultValue) {
+
+        if (properties.containsKey(key)) {
+            String sv = (String) properties.get(key);
+            return sv;
+        }
+        return defaultValue;
+    }
+
+    @Override
+    public String getValue(String key) {
+
+        return getValue(key, StringUtils.EMPTY);
+    }
+
     /**
      * 获取string类型的数组，以regex分割
      *
@@ -88,6 +107,7 @@ public class DefaultPropertiesHandler implements PropertiesHandler {
      * @param regex
      * @return
      */
+    @Override
     public List<String> getStringList(String key, String regex) {
 
         List<String> ret = new ArrayList<>();

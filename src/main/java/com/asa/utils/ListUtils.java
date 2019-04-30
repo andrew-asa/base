@@ -73,6 +73,35 @@ public class ListUtils {
         }
     }
 
+    /**
+     * 安全删除
+     *
+     * @param list
+     * @param e
+     * @param <T>
+     */
+    public static <T> void safeRemove(Collection<T> list, T e) {
+
+        if (list != null && e != null) {
+            list.remove(e);
+        }
+    }
+
+    /**
+     * 安全检查
+     *
+     * @param list
+     * @param collection
+     * @param <T>
+     */
+    public static <T> void safeRemove(Collection<T> list, Collection<T> collection) {
+
+        if (list != null && collection != null) {
+            for (T c : collection) {
+                safeRemove(list, c);
+            }
+        }
+    }
 
     /**
      * list 的长度
