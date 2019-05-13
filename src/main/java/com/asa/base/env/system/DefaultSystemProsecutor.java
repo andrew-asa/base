@@ -111,7 +111,7 @@ public class DefaultSystemProsecutor implements SystemProsecutor {
     public CommandInfo commandInfo(String cmd) {
 
         assert StringUtils.isNotEmpty(cmd);
-        String s = Shell.getInstance().execStr("whereis " + cmd);
+        String s = Shell.getInstance().execStr("command -v " + cmd);
         boolean exist = StringUtils.isNotEmpty(s);
         CommandInfo info = new CommandInfo(cmd, exist);
         if (exist) {

@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * @author andrew_asa
  * @date 2019/3/12.
+ * 已第一个排查到的child存在的属性作为基准属性
  */
 public class TreePropertiesHander implements PropertiesHandler {
 

@@ -11,6 +11,7 @@ import java.util.List;
  * @author andrew_asa
  * @date 2019/3/12.
  * 复合属性文件处理类
+ * 第一个碰到的属性类为属性作为基准
  */
 public class CompoundPropertiesHandler implements PropertiesHandler {
 
