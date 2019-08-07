@@ -110,7 +110,7 @@ public class DefaultPropertiesHandler implements PropertiesHandler {
     @Override
     public List<String> getStringList(String key, String regex) {
 
-        List<String> ret = new ArrayList<>();
+        List<String> ret = new ArrayList<String>();
         if (properties.containsKey(key)) {
             String sv = (String) properties.get(key);
             if (StringUtils.isNotEmpty(sv)) {

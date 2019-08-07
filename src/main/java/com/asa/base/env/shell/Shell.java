@@ -39,7 +39,7 @@ public class Shell {
 
     public List<String> execStrList(String cmd, int maxLine) {
 
-        List<String> ret = new ArrayList<>();
+        List<String> ret = new ArrayList<String>();
         assert cmd != null;
         Process process = null;
         Reader reader = null;
@@ -81,7 +81,7 @@ public class Shell {
     public List<String> execPipelineStrList(String cmd, int maxLine) {
 
         assert cmd != null;
-        List<String> ret = new ArrayList<>();
+        List<String> ret = new ArrayList<String>();
         Process process = null;
         Reader reader = null;
         try {

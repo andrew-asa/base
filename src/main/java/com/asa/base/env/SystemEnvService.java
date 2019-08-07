@@ -4,9 +4,8 @@ import com.asa.base.env.system.LinuxProsecutor;
 import com.asa.base.env.system.MacProsecutor;
 import com.asa.base.env.system.SystemProsecutor;
 import com.asa.base.env.system.WindowProsecutor;
-import com.asa.third.org.apache.commons.lang3.SystemUtils;
+import com.asa.utils.SystemUtils;
 
-import java.math.MathContext;
 
 /**
  * @author andrew_asa

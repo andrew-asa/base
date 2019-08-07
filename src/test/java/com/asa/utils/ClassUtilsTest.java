@@ -1,12 +1,10 @@
 package com.asa.utils;
 
-import com.asa.third.org.apache.commons.lang3.ClassUtils;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.List;
 
 
 /**
@@ -18,8 +16,8 @@ public class ClassUtilsTest {
     @Test
     public void getInterfaces() throws Exception {
 
-        List<Class<?>> clazz = ClassUtils.getAllInterfaces(String.class);
-        System.out.println(clazz);
+        //List<Class<?>> clazz = ClassUtils.getAllInterfaces(String.class);
+        //System.out.println(clazz);
         InvocationHandler ph = new Ph(new SimpleValue() {
 
             @Override

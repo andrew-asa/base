@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class CompoundPropertiesHandler implements PropertiesHandler {
 
-    private List<PropertiesHandler> handlers = new ArrayList<>();
+    private List<PropertiesHandler> handlers = new ArrayList<PropertiesHandler>();
 
     public CompoundPropertiesHandler(List<PropertiesHandler> handlers) {
 

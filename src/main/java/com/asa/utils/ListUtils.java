@@ -3,9 +3,6 @@ package com.asa.utils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * @author andrew_asa
@@ -175,35 +172,5 @@ public class ListUtils {
         if (list != null && item != null) {
             list.remove(item);
         }
-    }
-
-    /**
-     * 遍历主要是防止判空的情况
-     *
-     * @param list
-     * @param action
-     * @param <T>
-     */
-    public static <T> void forEach(List<T> list, Consumer<? super T> action) {
-
-        if (ListUtils.isNotEmpty(list)) {
-            list.forEach(action);
-        }
-    }
-
-    /**
-     * 过滤
-     *
-     * @param list
-     * @param predicate
-     * @param <T>
-     * @return
-     */
-    public static <T> List<T> filterAsList(List<T> list, Predicate<? super T> predicate) {
-
-        if (ListUtils.isNotEmpty(list)) {
-            return list.stream().filter(predicate).collect(Collectors.toList());
-        }
-        return new ArrayList<T>();
     }
 }

@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
  */
 public class LocalBundle {
 
-    private Map<Locale, ResourceBundle> bundleMap = new HashMap<>();
+    private Map<Locale, ResourceBundle> bundleMap = new HashMap<Locale, ResourceBundle>();
 
     private LocaleMarker localeMarker;
 

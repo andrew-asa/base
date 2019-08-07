@@ -29,7 +29,7 @@ public class MapUtilsTest {
 
         Map<String, String> m = null;
         MapUtils.safeAddToMap(m, "d", "vv");
-        m = new HashMap<>();
+        m = new HashMap<String, String>();
         MapUtils.safeAddToMap(m, "d", "vv");
         MapUtils.safeAddToMap(m, "d", null);
         Assert.assertNull(MapUtils.safeAddToMap(m, null, null));
@@ -41,7 +41,7 @@ public class MapUtilsTest {
     public void isEmptyMap() throws Exception {
 
         Assert.assertTrue(MapUtils.isEmptyMap(null));
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<String, String>();
         Assert.assertTrue(MapUtils.isEmptyMap(map));
         Assert.assertFalse(MapUtils.isNotEmptyMap(map));
         map.put("l", "2");
@@ -52,7 +52,7 @@ public class MapUtilsTest {
     @Test
     public void contains() throws Exception {
 
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<String, String>();
         Assert.assertFalse(MapUtils.containsKey(map, "2"));
         Assert.assertFalse(MapUtils.containsKey(null, "2"));
         map.put("l", "2");
@@ -62,7 +62,7 @@ public class MapUtilsTest {
     @Test
     public void getFirstValue() throws Exception {
 
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<String, String>();
         Assert.assertEquals(MapUtils.getFirstValue(map), null);
         map.put("l", "2");
         Assert.assertEquals(MapUtils.getFirstValue(map), "2");

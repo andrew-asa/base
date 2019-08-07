@@ -1,6 +1,5 @@
 package com.asa.base.env.system.info;
 
-import com.asa.utils.AssistUtils;
 
 /**
  * @author andrew_asa

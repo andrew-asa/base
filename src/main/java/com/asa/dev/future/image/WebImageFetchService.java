@@ -25,10 +25,10 @@ public class WebImageFetchService implements ResourceFetchService<String, Image>
     private static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
 
     @Override
-    public ResourceFuture<Image> load(String resource, ResourceLoadFuture future) {
+    public ResourceFuture<Image> load(final String resource, final ResourceLoadFuture future) {
 
 
-        Future<Image> f = scheduler.schedule(new Callable<Image>() {
+        final Future<Image> f = scheduler.schedule(new Callable<Image>() {
 
             @Override
             public Image call() throws Exception {
@@ -44,12 +44,17 @@ public class WebImageFetchService implements ResourceFetchService<String, Image>
             }
         }, 0, TimeUnit.MILLISECONDS);
         ResourceFuture resourceFuture = new ResourceFuture(f);
-        new Thread(() -> {
-            try {
-                Image image = f.get();
-                future.onload(image);
-            } catch (Exception e) {
-                future.onError(e);
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                try {
+                    Image image = f.get();
+                    future.onload(image);
+                } catch (Exception e) {
+                    future.onError(e);
+                }
             }
         }).start();
         return resourceFuture;

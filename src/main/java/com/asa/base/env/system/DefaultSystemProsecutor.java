@@ -5,9 +5,9 @@ import com.asa.base.env.system.info.CommandInfo;
 import com.asa.base.env.system.info.DiskInfo;
 import com.asa.base.env.system.info.PortInfo;
 import com.asa.base.env.system.info.ServiceInfo;
-import com.asa.third.org.apache.commons.lang3.SystemUtils;
 import com.asa.utils.ListUtils;
 import com.asa.utils.StringUtils;
+import com.asa.utils.SystemUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,11 +32,11 @@ public class DefaultSystemProsecutor implements SystemProsecutor {
     @Override
     public List<DiskInfo> diskInfo() {
 
-        List<DiskInfo> infos = new ArrayList<>();
+        List<DiskInfo> infos = new ArrayList<DiskInfo>();
         if (SystemUtils.IS_OS_MAC || SystemUtils.IS_OS_LINUX) {
             List<String> infostr = Shell.getInstance().execStrList("df -hl");
             if (ListUtils.isNotEmpty(infostr)) {
-                infostr.subList(1, infostr.size()).forEach(item -> {
+                for (String item : infostr.subList(1, infostr.size())) {
                     String[] is = item.split("\\s+");
                     String ps = is[0];
                     String ts = is[1];
@@ -44,7 +44,7 @@ public class DefaultSystemProsecutor implements SystemProsecutor {
                     String as = is[3];
                     DiskInfo info = new DiskInfo(ps, toM(ts), toM(us), toM(as));
                     infos.add(info);
-                });
+                }
             }
         }
         return infos;
@@ -123,6 +123,6 @@ public class DefaultSystemProsecutor implements SystemProsecutor {
     @Override
     public Map<String, String> getSystemProperties() {
 
-        return new HashMap<>();
+        return new HashMap<String, String>();
     }
 }

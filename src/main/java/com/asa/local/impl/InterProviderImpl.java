@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  */
 public class InterProviderImpl implements InterProvider {
 
-    private List<LocalBundle> bundles = new ArrayList<>();
+    private List<LocalBundle> bundles = new ArrayList<LocalBundle>();
 
 
     public InterProviderImpl() {
@@ -77,12 +77,12 @@ public class InterProviderImpl implements InterProvider {
     @Override
     public void removeResource(LocaleMarker marker) {
 
-        List<LocalBundle> tbundles = new ArrayList<>();
-        bundles.forEach(localBundle -> {
+        List<LocalBundle> tbundles = new ArrayList<LocalBundle>();
+        for (LocalBundle localBundle : bundles) {
             if (!ComparatorUtils.equals(marker, localBundle.getLocaleMarker())) {
                 tbundles.add(localBundle);
             }
-        });
+        }
         bundles = tbundles;
     }
 }

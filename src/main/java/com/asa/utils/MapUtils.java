@@ -136,7 +136,7 @@ public class MapUtils {
 
     public static <K, V> Map<K, V> createMap(K key, V value) {
 
-        Map<K, V> ret = new HashMap<>();
+        Map<K, V> ret = new HashMap<K, V>();
         safeAddToMap(ret, key, value);
         return ret;
     }
