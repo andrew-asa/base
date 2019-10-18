@@ -1,6 +1,8 @@
 package com.asa.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -92,5 +94,32 @@ public class ArrayUtils {
             }
             return -1;
         }
+    }
+
+    /**
+     * 数组转迭代器
+     *
+     * @param elements
+     * @param <T>
+     * @return
+     */
+    public static <T> Iterator<T> toIterator(T[] elements) {
+
+        return arrayToList(elements).iterator();
+    }
+
+
+    /**
+     * 数组转迭代器
+     *
+     * @param elements
+     * @param <T>
+     * @return
+     */
+    public static <T> Iterator<T> toReverseIterator(T[] elements) {
+
+        List<T> list = arrayToList(elements);
+        Collections.reverse(list);
+        return list.iterator();
     }
 }

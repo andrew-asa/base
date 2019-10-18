@@ -1,13 +1,20 @@
 package com.asa.utils.io;
 
+import com.asa.log.LoggerFactory;
+import com.asa.third.org.apache.commons.lang3.ArrayUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author andrew_asa
  * @date 2019/1/23.
  */
 public class IOUtils {
+
+    public static final int BUF_MB = 32 * 1024;
 
     /**
      * 关闭
@@ -25,5 +32,36 @@ public class IOUtils {
                 }
             }
         }
+    }
+
+    /**
+     * @param in
+     * @return
+     */
+    public static byte[] inputStream2Bytes(InputStream in) {
+
+        if (in == null) {
+            return new byte[0];
+        }
+        byte[] temp = new byte[BUF_MB];
+        ByteArrayOutputStream bi = new ByteArrayOutputStream();
+        try {
+            int count;
+            while ((count = in.read(temp)) > 0) {
+                byte[] b4Add;
+                if (temp.length == count) {
+                    b4Add = temp;
+                } else {
+                    b4Add = ArrayUtils.subarray(temp, 0, count);
+                }
+                bi.write(b4Add);
+            }
+        } catch (IOException e) {
+            LoggerFactory.getLogger().error(e.getMessage(), e);
+        } finally {
+            closeQuietly(in);
+        }
+
+        return bi.toByteArray();
     }
 }
