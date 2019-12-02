@@ -1,11 +1,46 @@
 package com.asa.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * @author andrew_asa
  * @date 2019-10-17.
  * 时间类工具类
  */
 public class TimeUtils {
+
+    /**
+     * 英文简写（默认）如：2010-12-01
+     */
+    public static String FORMAT_SHORT = "yyyy-MM-dd";
+
+    /**
+     * 英文全称  如：2010-12-01 23:15:06
+     */
+    public static String FORMAT_LONG = "yyyy-MM-dd HH:mm:ss";
+
+    /**
+     * 精确到毫秒的完整时间    如：yyyy-MM-dd HH:mm:ss.S
+     */
+    public static String FORMAT_FULL = "yyyy-MM-dd HH:mm:ss.S";
+
+    /**
+     * 中文简写  如：2010年12月01日
+     */
+    public static String FORMAT_SHORT_CN = "yyyy年MM月dd";
+
+    /**
+     * 中文全称  如：2010年12月01日  23时15分06秒
+     */
+    public static String FORMAT_LONG_CN = "yyyy年MM月dd日  HH时mm分ss秒";
+
+    /**
+     * 精确到毫秒的完整中文时间
+     */
+    public static String FORMAT_FULL_CN = "yyyy年MM月dd日  HH时mm分ss秒SSS毫秒";
+
 
     /**
      * 相差多少s
@@ -105,5 +140,166 @@ public class TimeUtils {
             }
         }
         return true;
+    }
+
+
+    /**
+     * 获取时间戳
+     */
+    public static String getTimeString() {
+
+        SimpleDateFormat df = new SimpleDateFormat(FORMAT_FULL);
+        Calendar calendar = Calendar.getInstance();
+        return df.format(calendar.getTime());
+    }
+
+
+    /**
+     * 功能描述：返回月
+     *
+     * @param date Date 日期
+     * @return 返回月份
+     */
+    public static int getMonth(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.MONTH) + 1;
+    }
+
+    /**
+     * 功能描述：返回日
+     *
+     * @param date Date 日期
+     * @return 返回日份
+     */
+    public static int getDay(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public static int getDay(long date) {
+
+        return getDay(new Date(date));
+    }
+
+    /**
+     * 功能描述：返回小
+     *
+     * @param date 日期
+     * @return 返回小时
+     */
+    public static int getHour(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.HOUR_OF_DAY);
+    }
+
+    public static int getHour(long date) {
+
+        return getHour(new Date(date));
+    }
+
+    /**
+     * 功能描述：返回分
+     *
+     * @param date 日期
+     * @return 返回分钟
+     */
+    public static int getMinute(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.MINUTE);
+    }
+
+    public static int getMinute(long date) {
+
+        return getMinute(new Date(date));
+    }
+
+    /**
+     * 返回秒钟
+     *
+     * @param date Date 日期
+     * @return 返回秒钟
+     */
+    public static int getSecond(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.SECOND);
+    }
+
+    /**
+     * 功能描述：返回毫
+     *
+     * @param date 日期
+     * @return 返回毫
+     */
+    public static long getMillis(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.getTimeInMillis();
+    }
+
+    public static long getMillis(long date) {
+
+        return getMillis(new Date(date));
+    }
+
+    public static boolean isOpenMarketTime(long time) {
+
+        long current = time;
+        int hour = TimeUtils.getHour(current);
+        int minute = TimeUtils.getMinute(current);
+        if (hour == 9) {
+            return minute >= 30;
+        }
+        if (hour == 11) {
+            return minute <= 30;
+        }
+        return hour > 9 && hour < 15;
+    }
+
+    /**
+     * 一天的开始时间
+     *
+     * @param time
+     * @return
+     */
+    public static long getTimeStartOfDay(long time) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(time));
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date dayStart = calendar.getTime();
+        return dayStart.getTime();
+    }
+
+
+    /**
+     * 一天的开始时间
+     *
+     * @param time
+     * @return
+     */
+    public static long getTimeEndOfDay(long time) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(time));
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        Date dayEnd = calendar.getTime();
+        return dayEnd.getTime();
     }
 }

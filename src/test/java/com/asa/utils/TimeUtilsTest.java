@@ -34,4 +34,36 @@ public class TimeUtilsTest {
 
         TimeUtils.toMicroSecond("");
     }
+
+
+    @Test
+    public void isOpenMarketTime() {
+        // 2019-12-02 10:43:33
+        Assert.assertEquals(TimeUtils.isOpenMarketTime(1575254613000L), true);
+        //2019-12-02 14:43:33
+        Assert.assertEquals(TimeUtils.isOpenMarketTime(1575269013000L), true);
+        //2019-12-02 09:00:33
+        Assert.assertEquals(TimeUtils.isOpenMarketTime(1575248433000L), false);
+        //2019-12-02 09:30:33
+        Assert.assertEquals(TimeUtils.isOpenMarketTime(1575250233000L), true);
+        //2019-12-02 11:31:33
+        Assert.assertEquals(TimeUtils.isOpenMarketTime(1575257493000L), false);
+        //2019-12-02 15:01:33
+        Assert.assertEquals(TimeUtils.isOpenMarketTime(1575270093000L), false);
+    }
+
+    @Test
+    public void getTimeStartOfDay() {
+        // 1575270093000L -> 2019-12-02 15:01:33 1575216000000->2019-12-02 00:00:00
+        Assert.assertEquals(TimeUtils.getTimeStartOfDay(1575270093000L), 1575216000000L);
+        // 1575302399000L -> 2019-12-02 23:59:59 1575216000000->2019-12-02 00:00:00
+        Assert.assertEquals(TimeUtils.getTimeStartOfDay(1575302399000L), 1575216000000L);
+        // 1575313199000L -> 2019-12-03 2:59:59 1575216000000->2019-12-02 00:00:00
+        Assert.assertNotEquals(TimeUtils.getTimeStartOfDay(1575313199000L), 1575216000000L);
+    }
+
+    @Test
+    public  void getTimeEndOfDay() {
+
+    }
 }

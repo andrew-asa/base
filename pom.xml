@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jdk.version>1.7</jdk.version>
+        <jdk.version>1.8</jdk.version>
         <!-- 本地lib路径-->
         <!--<system.lib.dir>/Users/andrew_asa/Documents/code/github/andrew-asa/lib</system.lib.dir>-->
         <!--系统maven仓库地址-->
