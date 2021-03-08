@@ -1,5 +1,7 @@
 package com.asa.utils;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,6 +17,9 @@ public class TimeUtils {
      * 英文简写（默认）如：2010-12-01
      */
     public static String FORMAT_SHORT = "yyyy-MM-dd";
+
+
+    public static SimpleDateFormat YMD_FORMAT = new SimpleDateFormat(FORMAT_SHORT);
 
     /**
      * 英文全称  如：2010-12-01 23:15:06
@@ -151,6 +156,30 @@ public class TimeUtils {
         SimpleDateFormat df = new SimpleDateFormat(FORMAT_FULL);
         Calendar calendar = Calendar.getInstance();
         return df.format(calendar.getTime());
+    }
+
+    /**
+     * 获取周几
+     *
+     * @param date
+     * @return
+     */
+    public static int getDayOfWeek(long date) {
+
+        return getDayOfWeek(new Date(date));
+    }
+
+    /**
+     * 获取周几
+     *
+     * @param date
+     * @return
+     */
+    public static int getDayOfWeek(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_WEEK);
     }
 
 
@@ -301,5 +330,23 @@ public class TimeUtils {
         calendar.set(Calendar.MILLISECOND, 999);
         Date dayEnd = calendar.getTime();
         return dayEnd.getTime();
+    }
+
+    /**
+     * 是否是周末
+     *
+     * @param time
+     * @return
+     */
+    public static boolean isWeekend(long time) {
+
+        int dayOfWeek = getDayOfWeek(time);
+        return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY;
+    }
+
+    public static Timestamp parseYmdTimestamp(String string) throws ParseException {
+
+        Date date = YMD_FORMAT.parse(string);
+        return new Timestamp(date.getTime());
     }
 }

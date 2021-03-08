@@ -34,9 +34,29 @@ public class StringUtils {
         return null;
     }
 
+    /**
+     * 字符串是否为空
+     * @param str
+     * @return
+     */
     public static boolean isEmpty(String str) {
 
         return str == null || str.length() == 0;
+    }
+
+    /**
+     * 如果为空则返回替代字符串
+     * @param str
+     * @param rep
+     * @return
+     */
+    public static String ifEmpty(String str,String rep) {
+
+        if (isEmpty(str)) {
+            return rep;
+        } else {
+            return str;
+        }
     }
 
     public static boolean isNotEmpty(String str) {
@@ -132,6 +152,25 @@ public class StringUtils {
     }
 
     /**
+     * str1是否已str2结尾
+     *
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public static boolean endWith(String str1, String str2) {
+
+        if (str1 == null && str2 == null) {
+            return true;
+        }
+        if (str1 == null || str2 == null) {
+            return false;
+        }
+        return str1.endsWith(str2);
+    }
+
+
+    /**
      * 字符串长度
      *
      * @param string
@@ -154,6 +193,9 @@ public class StringUtils {
      */
     public static boolean startsWith(String str, String prefix) {
 
+        if (str == null && prefix == null) {
+            return true;
+        }
         if (str == null || prefix == null) {
             return false;
         }

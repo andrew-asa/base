@@ -3,7 +3,9 @@ package com.asa.utils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.Calendar;
 
 /**
  * @author andrew_asa
@@ -63,7 +65,80 @@ public class TimeUtilsTest {
     }
 
     @Test
-    public  void getTimeEndOfDay() {
+    public void getTimeEndOfDay() {
 
+    }
+
+    @Test
+    public void testDayOfWeek() {
+
+        Assert.assertEquals(TimeUtils.getDayOfWeek(1576224653000L), Calendar.FRIDAY);
+        Assert.assertEquals(TimeUtils.getDayOfWeek(1576311053000L), Calendar.SATURDAY);
+        Assert.assertEquals(TimeUtils.getDayOfWeek(1576397453000L), Calendar.SUNDAY);
+    }
+
+    @Test
+    public void testIsWeekend() {
+
+        Assert.assertFalse(TimeUtils.isWeekend(1576224653000L));
+        Assert.assertTrue(TimeUtils.isWeekend(1576311053000L));
+        Assert.assertTrue(TimeUtils.isWeekend(1576397453000L));
+    }
+
+    @Test
+    public void timeCostAsSecond() {
+
+    }
+
+    @Test
+    public void timeCostAsMicroSecond() {
+
+    }
+
+    @Test
+    public void timeCostAsMicroSecond1() {
+
+    }
+
+    @Test
+    public void toMicroSecond() {
+
+    }
+
+    @Test
+    public void getTimeString() {
+
+    }
+
+    @Test
+    public void getDayOfWeek() {
+
+    }
+
+    @Test
+    public void getDayOfWeek1() {
+
+    }
+
+    @Test
+    public void getMonth() {
+
+    }
+
+    @Test
+    public void getDay() {
+
+    }
+
+    @Test
+    public void getDay1() {
+
+    }
+
+    @Test
+    public void parseYmdTimestamp() throws ParseException {
+
+        Timestamp timestamp = TimeUtils.parseYmdTimestamp("2019-09-30");
+        Assert.assertEquals(timestamp.getTime(), 1569772800000L);
     }
 }

@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -79,5 +80,25 @@ public class IOUtils {
             throws UnsupportedEncodingException {
 
         return new String(inputStream2Bytes(is), EncodeConstants.ENCODING_UTF_8);
+    }
+
+    /**
+     * 复制
+     *
+     * @param inp
+     * @param out
+     * @throws IOException
+     */
+    public static void copy(InputStream inp, OutputStream out) throws IOException {
+
+        byte[] buff = new byte[4096];
+
+        int count;
+        while ((count = inp.read(buff)) != -1) {
+            if (count > 0) {
+                out.write(buff, 0, count);
+            }
+        }
+
     }
 }

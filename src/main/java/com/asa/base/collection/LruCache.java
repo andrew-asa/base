@@ -63,6 +63,31 @@ public class LruCache<K, V> {
     }
 
     /**
+     * 是否包含这个key值
+     * 不加入使用统计
+     *
+     * @param key
+     * @return
+     */
+    public boolean containKey(K key) {
+
+        return map.containsKey(key);
+    }
+
+    /**
+     * 是否包含改值
+     * <p>
+     * 不加入使用统计
+     *
+     * @param value
+     * @return
+     */
+    public boolean containValue(V value) {
+
+        return map.containsValue(value);
+    }
+
+    /**
      * Returns the value for {@code key} if it exists in the cache or can be
      * created by {@code #create}. If a value was returned, it is moved to the
      * head of the queue. This returns null if a value is not cached and cannot

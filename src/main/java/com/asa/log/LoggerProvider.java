@@ -6,6 +6,8 @@ package com.asa.log;
  */
 public interface LoggerProvider {
 
+    void setLevel(Level level);
+
     void debug(String msg);
 
     void debug(String msg, Object... parameters);

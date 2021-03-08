@@ -173,4 +173,19 @@ public class ListUtils {
             list.remove(item);
         }
     }
+
+    /**
+     * indexOf判空 参数有误的时候-1，其它情况直接调用list里的方法。
+     * @param list
+     * @param item
+     * @param <T>
+     * @return
+     */
+    public static <T> int indexOf(List<T> list, T item) {
+
+        if (item == null || list == null) {
+            return -1;
+        }
+        return list.indexOf(item);
+    }
 }

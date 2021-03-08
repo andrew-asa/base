@@ -147,4 +147,29 @@ public class StringUtilsTest {
         ret = StringUtils.messageFormat(fs, args);
         Assert.assertEquals(ret, "absaccc");
     }
+
+    @Test
+    public void clone1() {
+
+    }
+
+    @Test
+    public void endWith() {
+
+        Assert.assertFalse(StringUtils.endWith(null, ""));
+        Assert.assertFalse(StringUtils.endWith("", null));
+        Assert.assertTrue(StringUtils.endWith(null, null));
+        Assert.assertTrue(StringUtils.endWith("abc", "c"));
+        Assert.assertFalse(StringUtils.endWith("abc", "b"));
+    }
+
+    @Test
+    public void startWith() {
+
+        Assert.assertFalse(StringUtils.startsWith(null, ""));
+        Assert.assertFalse(StringUtils.startsWith("", null));
+        Assert.assertTrue(StringUtils.startsWith(null, null));
+        Assert.assertTrue(StringUtils.startsWith("abc", "a"));
+        Assert.assertFalse(StringUtils.startsWith("abc", "b"));
+    }
 }
