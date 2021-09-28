@@ -1,10 +1,13 @@
 package com.asa.utils;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author andrew_asa
@@ -45,6 +48,14 @@ public class TimeUtils {
      * 精确到毫秒的完整中文时间
      */
     public static String FORMAT_FULL_CN = "yyyy年MM月dd日  HH时mm分ss秒SSS毫秒";
+
+    public static final String DEFAULT = "Default";
+    public static final String DATE_FORMAT1 = "yyyy-MM-dd";
+    public static final String DATE_FORMAT2 = "yyyy-MM";
+    public static final String DATE_FORMAT3 = "yyyy-MM-dd HH";
+    public static final String DATE_FORMAT4 = "yyyy-MM-dd HH:mm";
+    public static final String DATE_FORMAT5 = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_FORMAT6 = "MM-dd";
 
 
     /**
@@ -157,6 +168,8 @@ public class TimeUtils {
         Calendar calendar = Calendar.getInstance();
         return df.format(calendar.getTime());
     }
+
+
 
     /**
      * 获取周几
@@ -349,4 +362,43 @@ public class TimeUtils {
         Date date = YMD_FORMAT.parse(string);
         return new Timestamp(date.getTime());
     }
+
+    private static ThreadLocal<Map<String, SimpleDateFormat>> dateFormatThreadLocal = new ThreadLocal();
+
+    public static String formatDateToString(String format, Date date) {
+        return getDateFormatFromString(format).format(date);
+    }
+
+    private static DateFormat getDateFormatFromString(String format) {
+        initDateFormatMap();
+        Map map = (Map)dateFormatThreadLocal.get();
+        SimpleDateFormat dateFormat = (SimpleDateFormat)map.get(format);
+        if (dateFormat != null) {
+            return dateFormat;
+        } else {
+            SimpleDateFormat defaultFormat = (SimpleDateFormat)map.get("DEFAULT");
+            if (StringUtils.equals(defaultFormat.toPattern(), format)) {
+                return defaultFormat;
+            } else {
+                defaultFormat.applyPattern(format);
+                return defaultFormat;
+            }
+        }
+    }
+
+    private static void initDateFormatMap() {
+        if (dateFormatThreadLocal.get() == null) {
+            ConcurrentHashMap map = new ConcurrentHashMap();
+            map.put("Default", new SimpleDateFormat());
+            map.put("yyyy-MM-dd", new SimpleDateFormat("yyyy-MM-dd"));
+            map.put("yyyy-MM", new SimpleDateFormat("yyyy-MM"));
+            map.put("yyyy-MM-dd HH", new SimpleDateFormat("yyyy-MM-dd HH"));
+            map.put("yyyy-MM-dd HH:mm", new SimpleDateFormat("yyyy-MM-dd HH:mm"));
+            map.put("yyyy-MM-dd HH:mm:ss", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+            map.put("MM-dd", new SimpleDateFormat("MM-dd"));
+            dateFormatThreadLocal.set(map);
+        }
+
+    }
+
 }

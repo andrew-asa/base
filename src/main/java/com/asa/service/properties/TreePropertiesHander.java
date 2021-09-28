@@ -63,6 +63,18 @@ public class TreePropertiesHander implements PropertiesHandler {
     }
 
     @Override
+    public boolean getBoolean(String key, boolean defaultValue) {
+
+
+        if (child.containKey(key)) {
+            return child.getBoolean(key, defaultValue);
+        } else if (father.containKey(key)) {
+            return father.getBoolean(key, defaultValue);
+        }
+        return defaultValue;
+    }
+
+    @Override
     public String getValue(String key, String defaultValue) {
 
         if (child.containKey(key)) {

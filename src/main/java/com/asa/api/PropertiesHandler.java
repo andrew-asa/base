@@ -44,6 +44,14 @@ public interface PropertiesHandler {
     double getDouble(String key, double defaultValue);
 
     /**
+     * 获取boolean 值
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    boolean getBoolean(String key, boolean defaultValue);
+
+    /**
      * 获取字符串值
      *
      * @param key

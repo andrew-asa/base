@@ -1,6 +1,7 @@
 package com.asa.service.properties;
 
 import com.asa.api.PropertiesHandler;
+import com.asa.utils.BooleanUtils;
 import com.asa.utils.ListUtils;
 import com.asa.utils.StringUtils;
 
@@ -79,6 +80,18 @@ public class DefaultPropertiesHandler implements PropertiesHandler {
             String sv = (String) properties.get(key);
             if (StringUtils.isNotEmpty(sv)) {
                 return Double.parseDouble(sv);
+            }
+        }
+        return defaultValue;
+    }
+
+    @Override
+    public boolean getBoolean(String key, boolean defaultValue) {
+
+        if (properties.containsKey(key)) {
+            String sv = (String) properties.get(key);
+            if (StringUtils.isNotEmpty(sv)) {
+                return BooleanUtils.toBoolean(sv);
             }
         }
         return defaultValue;

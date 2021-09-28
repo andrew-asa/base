@@ -5,7 +5,9 @@ import org.junit.Test;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author andrew_asa
@@ -140,5 +142,15 @@ public class TimeUtilsTest {
 
         Timestamp timestamp = TimeUtils.parseYmdTimestamp("2019-09-30");
         Assert.assertEquals(timestamp.getTime(), 1569772800000L);
+    }
+
+    @Test
+    public void formatDateToString() {
+
+        Date date = new Date();
+        date.setTime(1616858774L*1000);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        sdf.format(1616858774L);
+        System.out.println(sdf.format(1616858774L));
     }
 }

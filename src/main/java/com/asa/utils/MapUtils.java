@@ -145,4 +145,49 @@ public class MapUtils {
 
         return new HashMap<K, V>();
     }
+
+    /**
+     * 获取item 里面的 key 值转字符串
+     * @param item
+     * @param key
+     * @return
+     */
+    public static String getString(Map<String, Object> item, String key) {
+
+        return getString(item, key, StringUtils.EMPTY);
+    }
+
+    public static String getString(Map<String, Object> item, String key, String defaultValue) {
+
+        if (MapUtils.containsKey(item, key)) {
+            Object v = MapUtils.get(item, key);
+            if (v != null) {
+                return v.toString();
+            }
+        }
+        return defaultValue;
+    }
+
+    public static Integer getInteger(Map<String, Object> item, String key) {
+
+        return getInteger(item, key, 0);
+    }
+
+    /**
+     * 获取map里面key的整数value
+     * @param item
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    public static Integer getInteger(Map<String, Object> item, String key, int defaultValue) {
+
+        if (MapUtils.containsKey(item, key)) {
+            Object v = MapUtils.get(item, key);
+            if (v != null && v instanceof Integer) {
+                return (Integer) v;
+            }
+        }
+        return defaultValue;
+    }
 }

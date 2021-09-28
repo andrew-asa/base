@@ -27,13 +27,19 @@ public class NullPropertiesHandler implements PropertiesHandler {
     @Override
     public int getInt(String key, int defaultValue) {
 
-        return 0;
+        return defaultValue;
     }
 
     @Override
     public double getDouble(String key, double defaultValue) {
 
-        return 0;
+        return defaultValue;
+    }
+
+    @Override
+    public boolean getBoolean(String key, boolean defaultValue) {
+
+        return defaultValue;
     }
 
     @Override

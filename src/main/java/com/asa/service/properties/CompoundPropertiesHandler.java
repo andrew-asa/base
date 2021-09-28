@@ -74,6 +74,17 @@ public class CompoundPropertiesHandler implements PropertiesHandler {
     }
 
     @Override
+    public boolean getBoolean(String key, boolean defaultValue) {
+
+        for (PropertiesHandler handler : handlers) {
+            if (handler.containKey(key)) {
+                return handler.getBoolean(key, defaultValue);
+            }
+        }
+        return defaultValue;
+    }
+
+    @Override
     public String getValue(String key, String defaultValue) {
 
         for (PropertiesHandler handler : handlers) {

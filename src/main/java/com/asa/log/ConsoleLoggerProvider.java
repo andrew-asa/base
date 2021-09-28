@@ -27,6 +27,7 @@ public class ConsoleLoggerProvider implements LoggerProvider {
 
     @Override
     public void setLevel(Level level) {
+
         this.level = level;
     }
 
@@ -46,8 +47,18 @@ public class ConsoleLoggerProvider implements LoggerProvider {
     }
 
     @Override
+    public void debug(Class cls, String msg, Object... parameters) {
+
+        if (cls != null) {
+            String tMsg = "[" + cls.getName() + "] " + msg;
+            debug(tMsg, parameters);
+        }
+    }
+
+    @Override
     public void debug(String msg, Throwable throwable) {
-        if(DEBUG.greaterThanOrEqual(level)){
+
+        if (DEBUG.greaterThanOrEqual(level)) {
             System.out.println("[DEBUG]" + msg);
             throwable.printStackTrace();
         }
@@ -57,8 +68,16 @@ public class ConsoleLoggerProvider implements LoggerProvider {
     public void debug(Throwable throwable, String msg, Object... parameters) {
 
         if (DEBUG.greaterThanOrEqual(level)) {
-
             debug(msg, parameters);
+            throwable.printStackTrace();
+        }
+    }
+
+    @Override
+    public void debug(Class cls, Throwable throwable, String msg, Object... parameters) {
+
+        if (DEBUG.greaterThanOrEqual(level)) {
+            debug(cls, msg, parameters);
             throwable.printStackTrace();
         }
     }
@@ -106,6 +125,7 @@ public class ConsoleLoggerProvider implements LoggerProvider {
 
     @Override
     public void warn(String msg, Object... args) {
+
         FormattingTuple var4 = MessageFormatter.arrayFormat(msg, args);
         warn(var4.getMessage());
     }
@@ -121,6 +141,7 @@ public class ConsoleLoggerProvider implements LoggerProvider {
 
     @Override
     public void warn(Throwable throwable, String msg, Object... parameters) {
+
         if (WARN.greaterThanOrEqual(level)) {
             FormattingTuple var4 = MessageFormatter.arrayFormat(msg, parameters);
             System.err.println("[WARN]" + var4.getMessage());
@@ -138,6 +159,7 @@ public class ConsoleLoggerProvider implements LoggerProvider {
 
     @Override
     public void error(String msg, Object... args) {
+
         if (ERROR.greaterThanOrEqual(level)) {
             FormattingTuple tuple = MessageFormatter.arrayFormat(msg, args);
             error(tuple.getMessage());
@@ -146,6 +168,7 @@ public class ConsoleLoggerProvider implements LoggerProvider {
 
     @Override
     public void error(String msg, Throwable throwable) {
+
         if (ERROR.greaterThanOrEqual(level)) {
             System.err.println("[ERROR]" + msg);
             throwable.printStackTrace();
@@ -154,6 +177,7 @@ public class ConsoleLoggerProvider implements LoggerProvider {
 
     @Override
     public void error(Throwable throwable, String msg, Object... parameters) {
+
         if (ERROR.greaterThanOrEqual(level)) {
             FormattingTuple tuple = MessageFormatter.arrayFormat(msg, parameters);
             System.err.println("[ERROR]" + tuple.getMessage());
@@ -163,6 +187,7 @@ public class ConsoleLoggerProvider implements LoggerProvider {
 
     @Override
     public void trace(String msg) {
+
         if (TRACE.greaterThanOrEqual(level)) {
             System.out.println("[TRACE]" + msg);
         }
@@ -177,6 +202,7 @@ public class ConsoleLoggerProvider implements LoggerProvider {
 
     @Override
     public void trace(String msg, Throwable throwable) {
+
         if (TRACE.greaterThanOrEqual(level)) {
             System.out.println("[TRACE]" + msg);
             throwable.printStackTrace();
@@ -185,6 +211,7 @@ public class ConsoleLoggerProvider implements LoggerProvider {
 
     @Override
     public void trace(Throwable throwable, String msg, Object... parameters) {
+
         if (TRACE.greaterThanOrEqual(level)) {
             trace(msg, parameters);
             throwable.printStackTrace();

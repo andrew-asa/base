@@ -68,4 +68,18 @@ public class MapUtilsTest {
         Assert.assertEquals(MapUtils.getFirstValue(map), "2");
     }
 
+    @Test
+    public void getInteger() {
+        Map<String, Object> m =  MapBuilder.custom().add("aaa",1).build();
+        Assert.assertTrue(MapUtils.getInteger(m, "aaa") == 1);
+        Assert.assertTrue(MapUtils.getInteger(m, "bbb",2) == 2);
+    }
+
+    @Test
+    public void getString() {
+        Map<String, Object> m =  MapBuilder.custom().add("aaa","cccc").build();
+        Assert.assertTrue(StringUtils.equals(MapUtils.getString(m,"aaa"),"cccc"));
+        Assert.assertTrue(StringUtils.equals(MapUtils.getString(m,"bbb" ,"cccc"),"cccc"));
+        Assert.assertTrue(StringUtils.equals(MapUtils.getString(m,"ddd"),StringUtils.EMPTY));
+    }
 }

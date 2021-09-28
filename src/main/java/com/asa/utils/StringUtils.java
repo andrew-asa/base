@@ -3,8 +3,11 @@ package com.asa.utils;
 import com.asa.log.FormattingTuple;
 import com.asa.log.MessageFormatter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author andrew_asa
@@ -320,5 +323,124 @@ public class StringUtils {
             }
         }
         return ret;
+    }
+
+
+    public static String replace(String inString, String oldPattern, String newPattern) {
+        if (StringUtils.isEmpty(inString) || StringUtils.isEmpty(oldPattern) || newPattern == null) {
+            return inString;
+        }
+        int index = inString.indexOf(oldPattern);
+        if (index == -1) {
+            // no occurrence -> can return input as-is
+            return inString;
+        }
+
+        int capacity = inString.length();
+        if (newPattern.length() > oldPattern.length()) {
+            capacity += 16;
+        }
+        StringBuilder sb = new StringBuilder(capacity);
+
+        int pos = 0;  // our position in the old string
+        int patLen = oldPattern.length();
+        while (index >= 0) {
+            sb.append(inString.substring(pos, index));
+            sb.append(newPattern);
+            pos = index + patLen;
+            index = inString.indexOf(oldPattern, pos);
+        }
+
+        // append any characters to the right of a match
+        sb.append(inString.substring(pos));
+        return sb.toString();
+    }
+
+    public static String[] delimitedListToStringArray(String str,  String delimiter) {
+        return delimitedListToStringArray(str, delimiter, null);
+    }
+
+    public static String[] delimitedListToStringArray(
+             String str, String delimiter, String charsToDelete) {
+
+        if (str == null) {
+            return new String[0];
+        }
+        if (delimiter == null) {
+            return new String[] {str};
+        }
+
+        List<String> result = new ArrayList<>();
+        if (delimiter.isEmpty()) {
+            for (int i = 0; i < str.length(); i++) {
+                result.add(deleteAny(str.substring(i, i + 1), charsToDelete));
+            }
+        }
+        else {
+            int pos = 0;
+            int delPos;
+            while ((delPos = str.indexOf(delimiter, pos)) != -1) {
+                result.add(deleteAny(str.substring(pos, delPos), charsToDelete));
+                pos = delPos + delimiter.length();
+            }
+            if (str.length() > 0 && pos <= str.length()) {
+                // Add rest of String, but not in case of empty input.
+                result.add(deleteAny(str.substring(pos), charsToDelete));
+            }
+        }
+        return toStringArray(result);
+    }
+
+    public static String delete(String inString, String pattern) {
+        return replace(inString, pattern, "");
+    }
+
+
+    public static String deleteAny(String inString,String charsToDelete) {
+        if (StringUtils.isEmpty(inString) || StringUtils.isEmpty(charsToDelete)) {
+            return inString;
+        }
+
+        StringBuilder sb = new StringBuilder(inString.length());
+        for (int i = 0; i < inString.length(); i++) {
+            char c = inString.charAt(i);
+            if (charsToDelete.indexOf(c) == -1) {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+
+    public static String[] toStringArray(Collection<String> collection) {
+        return collection.toArray(new String[0]);
+    }
+
+    public static String collectionToDelimitedString(
+            Collection<?> coll, String delim, String prefix, String suffix) {
+
+        if (CollectionUtils.isEmpty(coll)) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        Iterator<?> it = coll.iterator();
+        while (it.hasNext()) {
+            sb.append(prefix).append(it.next()).append(suffix);
+            if (it.hasNext()) {
+                sb.append(delim);
+            }
+        }
+        return sb.toString();
+    }
+
+
+    public static String collectionToDelimitedString(Collection<?> coll, String delim) {
+        return collectionToDelimitedString(coll, delim, "", "");
+    }
+
+
+    public static String collectionToCommaDelimitedString(Collection<?> coll) {
+        return collectionToDelimitedString(coll, ",");
     }
 }

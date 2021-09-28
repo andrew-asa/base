@@ -4,12 +4,15 @@ import com.asa.log.LoggerFactory;
 import com.asa.third.org.apache.commons.lang3.ArrayUtils;
 import com.asa.utils.EncodeConstants;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 /**
  * @author andrew_asa
@@ -71,15 +74,16 @@ public class IOUtils {
 
     /**
      * 从输入流中按UTF-8编码读取字符串
+     * 读书之后会自动关闭输入留
      *
-     * @param is 输入流
+     * @param in 输入流
      * @return 读取出来的字符串
      * @throws UnsupportedEncodingException
      */
-    public static String inputStream2String(InputStream is)
+    public static String inputStream2String(InputStream in)
             throws UnsupportedEncodingException {
 
-        return new String(inputStream2Bytes(is), EncodeConstants.ENCODING_UTF_8);
+        return new String(inputStream2Bytes(in), EncodeConstants.ENCODING_UTF_8);
     }
 
     /**
@@ -99,6 +103,5 @@ public class IOUtils {
                 out.write(buff, 0, count);
             }
         }
-
     }
 }

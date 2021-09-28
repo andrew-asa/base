@@ -12,9 +12,13 @@ public interface LoggerProvider {
 
     void debug(String msg, Object... parameters);
 
+    void debug(Class cls,String msg, Object... parameters);
+
     void debug(String msg, Throwable throwable);
 
     void debug(Throwable throwable, String msg, Object... parameters);
+
+    void debug(Class cls, Throwable throwable, String msg, Object... parameters);
 
     void info(String msg);
 
