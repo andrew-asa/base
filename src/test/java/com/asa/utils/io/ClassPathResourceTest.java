@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.FileSystem;
 
 import static org.junit.Assert.*;
 
@@ -29,12 +30,27 @@ public class ClassPathResourceTest {
     @Test
     public void readLine() throws Exception {
 
-        ClassPathResource classPathResource = new ClassPathResource("com/asa/base/weng.pdf");
-        InputStream in = classPathResource.getInputStream();
+        Resource resource = new ClassPathResource("com/asa/base/wengao2.pdf");
+        InputStream in = resource.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String line;
         while ((line = reader.readLine()) != null) {
             System.out.println(line);
         }
+        IOUtils.closeQuietly(in);
+    }
+
+    @Ignore
+    @Test
+    public void readLine2() throws Exception {
+
+        Resource resource = new FileSystemResource("/Users/andrew_asa/Downloads/黑体.pdf");
+        InputStream in = resource.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        IOUtils.closeQuietly(in);
     }
 }

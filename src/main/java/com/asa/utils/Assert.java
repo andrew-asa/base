@@ -2,11 +2,11 @@ package com.asa.utils;
 
 /**
  * @author andrew_asa
- * @date 2021/4/9.
+ * @date 2021/9/29.
  */
-public abstract class Validate {
+public abstract class Assert {
 
-    private Validate() {}
+    private Assert() {}
 
     /**
      * Validates that the object is not null
