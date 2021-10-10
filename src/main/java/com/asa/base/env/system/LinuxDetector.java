@@ -2,8 +2,8 @@ package com.asa.base.env.system;
 
 import com.asa.base.env.SystemEnvService;
 import com.asa.base.env.shell.Shell;
-import com.asa.log.LoggerFactory;
-import com.asa.utils.StringUtils;
+import com.asa.base.log.LoggerFactory;
+import com.asa.base.utils.StringUtils;
 
 import java.io.File;
 import java.io.InputStream;

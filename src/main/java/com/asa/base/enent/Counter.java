@@ -1,6 +1,7 @@
 package com.asa.base.enent;
 
-import com.asa.log.LoggerFactory;
+
+import com.asa.base.log.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;

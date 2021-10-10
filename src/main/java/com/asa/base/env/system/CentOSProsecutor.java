@@ -1,7 +1,7 @@
 package com.asa.base.env.system;
 
 import com.asa.base.env.shell.Shell;
-import com.asa.utils.StringUtils;
+import com.asa.base.utils.StringUtils;
 
 /**
  * @author andrew_asa
