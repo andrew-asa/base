@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class ArrayUtils {
 
+    public static final int INDEX_NOT_FOUND = -1;
+
     /**
      * array 数组转list
      *
@@ -59,6 +61,10 @@ public class ArrayUtils {
     public static <T> int indexOf(T[] items, T item) {
 
         return indexOf(items, item, 0);
+    }
+
+    public static boolean contains(final Object[] array, final Object objectToFind) {
+        return indexOf(array, objectToFind) != INDEX_NOT_FOUND;
     }
 
     /**

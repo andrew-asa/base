@@ -119,6 +119,37 @@ public class ClassUtils {
     }
 
     /**
+     * Maps primitive {@code Class}es to their corresponding wrapper {@code Class}.
+     */
+    private static final Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<>();
+
+    static {
+        primitiveWrapperMap.put(Boolean.TYPE, Boolean.class);
+        primitiveWrapperMap.put(Byte.TYPE, Byte.class);
+        primitiveWrapperMap.put(Character.TYPE, Character.class);
+        primitiveWrapperMap.put(Short.TYPE, Short.class);
+        primitiveWrapperMap.put(Integer.TYPE, Integer.class);
+        primitiveWrapperMap.put(Long.TYPE, Long.class);
+        primitiveWrapperMap.put(Double.TYPE, Double.class);
+        primitiveWrapperMap.put(Float.TYPE, Float.class);
+        primitiveWrapperMap.put(Void.TYPE, Void.TYPE);
+    }
+    /**
+     * Maps wrapper {@code Class}es to their corresponding primitive types.
+     */
+    private static final Map<Class<?>, Class<?>> wrapperPrimitiveMap = new HashMap<>();
+
+    static {
+        for (final Map.Entry<Class<?>, Class<?>> entry : primitiveWrapperMap.entrySet()) {
+            final Class<?> primitiveClass = entry.getKey();
+            final Class<?> wrapperClass = entry.getValue();
+            if (!primitiveClass.equals(wrapperClass)) {
+                wrapperPrimitiveMap.put(wrapperClass, primitiveClass);
+            }
+        }
+    }
+
+    /**
      * Register the given common classes with the ClassUtils cache.
      */
     private static void registerCommonClasses(Class<?>... commonClasses) {
@@ -162,5 +193,16 @@ public class ClassUtils {
         }
         String packageName = className.substring(0, packageEndIndex);
         return packageName.replace(PACKAGE_SEPARATOR, PATH_SEPARATOR);
+    }
+
+    public static boolean isPrimitiveOrWrapper(final Class<?> type) {
+        if (type == null) {
+            return false;
+        }
+        return type.isPrimitive() || isPrimitiveWrapper(type);
+    }
+
+    public static boolean isPrimitiveWrapper(final Class<?> type) {
+        return wrapperPrimitiveMap.containsKey(type);
     }
 }
