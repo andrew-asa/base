@@ -1,7 +1,7 @@
 package com.asa.base.utils.io;
 
 import com.asa.base.log.LoggerFactory;
-import com.asa.third.org.apache.commons.lang3.ArrayUtils;
+import com.asa.base.utils.ArrayUtils;
 import com.asa.base.utils.EncodeConstants;
 
 import java.io.BufferedInputStream;
@@ -37,18 +37,22 @@ public class IOUtils {
      * The Unix directory separator character.
      */
     public static final char DIR_SEPARATOR_UNIX = '/';
+
     /**
      * The Windows directory separator character.
      */
     public static final char DIR_SEPARATOR_WINDOWS = '\\';
+
     /**
      * The system directory separator character.
      */
     public static final char DIR_SEPARATOR = File.separatorChar;
+
     /**
      * The Unix line separator string.
      */
     public static final String LINE_SEPARATOR_UNIX = "\n";
+
     /**
      * The Windows line separator string.
      */
@@ -58,6 +62,7 @@ public class IOUtils {
      * 行分隔符
      */
     public static final String LINE_SEPARATOR;
+
     static {
         // avoid security issues
         StringWriter buf = new StringWriter(4);
@@ -129,17 +134,23 @@ public class IOUtils {
     public static String inputStream2String(InputStream in)
             throws UnsupportedEncodingException {
 
-        return new String(inputStream2Bytes(in), EncodeConstants.ENCODING_UTF_8);
+        return inputStream2String(in, EncodeConstants.ENCODING_UTF_8);
+    }
+
+    public static String inputStream2String(InputStream in, String charsetName) throws UnsupportedEncodingException {
+
+        return new String(inputStream2Bytes(in), charsetName);
     }
 
 
-
     public static List readLines(InputStream input) throws IOException {
+
         InputStreamReader reader = new InputStreamReader(input);
         return readLines(reader);
     }
 
     public static List readLines(InputStream input, String encoding) throws IOException {
+
         if (encoding == null) {
             return readLines(input);
         } else {
@@ -150,11 +161,13 @@ public class IOUtils {
 
     /**
      * 文件转string list
+     *
      * @param input
      * @return
      * @throws IOException
      */
     public static List readLines(Reader input) throws IOException {
+
         BufferedReader reader = new BufferedReader(input);
         List list = new ArrayList();
         String line = reader.readLine();
@@ -167,15 +180,18 @@ public class IOUtils {
 
     /**
      * reader转行迭代器
+     *
      * @param reader
      * @return
      */
     public static LineIterator lineIterator(Reader reader) {
+
         return new LineIterator(reader);
     }
 
     /**
      * input stream 转行迭代器
+     *
      * @param input
      * @param encoding
      * @return
@@ -183,6 +199,7 @@ public class IOUtils {
      */
     public static LineIterator lineIterator(InputStream input, String encoding)
             throws IOException {
+
         Reader reader = null;
         if (encoding == null) {
             reader = new InputStreamReader(input);
@@ -194,34 +211,40 @@ public class IOUtils {
 
     /**
      * 字符串转inputstream
+     *
      * @param input
      * @return
      */
     public static InputStream toInputStream(String input) {
+
         byte[] bytes = input.getBytes();
         return new ByteArrayInputStream(bytes);
     }
 
     /**
      * 字符串转outputstream
+     *
      * @param input
      * @param encoding
      * @return
      * @throws IOException
      */
     public static InputStream toInputStream(String input, String encoding) throws IOException {
+
         byte[] bytes = encoding != null ? input.getBytes(encoding) : input.getBytes();
         return new ByteArrayInputStream(bytes);
     }
 
     public static void write(byte[] data, OutputStream output)
             throws IOException {
+
         if (data != null) {
             output.write(data);
         }
     }
 
     public static void write(byte[] data, Writer output) throws IOException {
+
         if (data != null) {
             output.write(new String(data));
         }
@@ -229,6 +252,7 @@ public class IOUtils {
 
     public static void write(byte[] data, Writer output, String encoding)
             throws IOException {
+
         if (data != null) {
             if (encoding == null) {
                 write(data, output);
@@ -239,6 +263,7 @@ public class IOUtils {
     }
 
     public static void write(char[] data, Writer output) throws IOException {
+
         if (data != null) {
             output.write(data);
         }
@@ -246,12 +271,14 @@ public class IOUtils {
 
     public static void write(char[] data, OutputStream output)
             throws IOException {
+
         if (data != null) {
             output.write(new String(data).getBytes());
         }
     }
 
     public static void write(String data, Writer output) throws IOException {
+
         if (data != null) {
             output.write(data);
         }
@@ -259,6 +286,7 @@ public class IOUtils {
 
     public static void write(String data, OutputStream output)
             throws IOException {
+
         if (data != null) {
             output.write(data.getBytes());
         }
@@ -266,6 +294,7 @@ public class IOUtils {
 
     public static void write(String data, OutputStream output, String encoding)
             throws IOException {
+
         if (data != null) {
             if (encoding == null) {
                 write(data, output);
@@ -277,6 +306,7 @@ public class IOUtils {
 
     public static void write(StringBuffer data, Writer output)
             throws IOException {
+
         if (data != null) {
             output.write(data.toString());
         }
@@ -284,6 +314,7 @@ public class IOUtils {
 
     public static void write(StringBuffer data, OutputStream output)
             throws IOException {
+
         if (data != null) {
             output.write(data.toString().getBytes());
         }
@@ -291,6 +322,7 @@ public class IOUtils {
 
     public static void write(StringBuffer data, OutputStream output,
                              String encoding) throws IOException {
+
         if (data != null) {
             if (encoding == null) {
                 write(data, output);
@@ -302,6 +334,7 @@ public class IOUtils {
 
     public static void writeLines(Collection lines, String lineEnding,
                                   OutputStream output, String encoding) throws IOException {
+
         if (encoding == null) {
             writeLines(lines, lineEnding, output);
         } else {
@@ -323,6 +356,7 @@ public class IOUtils {
 
     public static void writeLines(Collection lines, String lineEnding,
                                   OutputStream output) throws IOException {
+
         if (lines == null) {
             return;
         }
@@ -337,7 +371,9 @@ public class IOUtils {
             output.write(lineEnding.getBytes());
         }
     }
+
     public static int copy(InputStream input, OutputStream output) throws IOException {
+
         long count = copyLarge(input, output);
         if (count > Integer.MAX_VALUE) {
             return -1;
@@ -347,6 +383,7 @@ public class IOUtils {
 
     /**
      * input复制
+     *
      * @param input
      * @param output
      * @return
@@ -354,6 +391,7 @@ public class IOUtils {
      */
     public static long copyLarge(InputStream input, OutputStream output)
             throws IOException {
+
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         long count = 0;
         int n = 0;
@@ -366,12 +404,14 @@ public class IOUtils {
 
     public static void copy(InputStream input, Writer output)
             throws IOException {
+
         InputStreamReader in = new InputStreamReader(input);
         copy(in, output);
     }
 
     public static void copy(InputStream input, Writer output, String encoding)
             throws IOException {
+
         if (encoding == null) {
             copy(input, output);
         } else {
@@ -381,6 +421,7 @@ public class IOUtils {
     }
 
     public static int copy(Reader input, Writer output) throws IOException {
+
         long count = copyLarge(input, output);
         if (count > Integer.MAX_VALUE) {
             return -1;
@@ -389,6 +430,7 @@ public class IOUtils {
     }
 
     public static long copyLarge(Reader input, Writer output) throws IOException {
+
         char[] buffer = new char[DEFAULT_BUFFER_SIZE];
         long count = 0;
         int n = 0;
@@ -401,6 +443,7 @@ public class IOUtils {
 
     public static void copy(Reader input, OutputStream output)
             throws IOException {
+
         OutputStreamWriter out = new OutputStreamWriter(output);
         copy(input, out);
         // XXX Unless anyone is planning on rewriting OutputStreamWriter, we
@@ -410,6 +453,7 @@ public class IOUtils {
 
     public static void copy(Reader input, OutputStream output, String encoding)
             throws IOException {
+
         if (encoding == null) {
             copy(input, output);
         } else {
@@ -423,6 +467,7 @@ public class IOUtils {
 
     public static boolean contentEquals(InputStream input1, InputStream input2)
             throws IOException {
+
         if (!(input1 instanceof BufferedInputStream)) {
             input1 = new BufferedInputStream(input1);
         }
@@ -445,6 +490,7 @@ public class IOUtils {
 
     public static boolean contentEquals(Reader input1, Reader input2)
             throws IOException {
+
         if (!(input1 instanceof BufferedReader)) {
             input1 = new BufferedReader(input1);
         }

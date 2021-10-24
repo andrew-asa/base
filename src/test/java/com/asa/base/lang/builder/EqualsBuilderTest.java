@@ -17,9 +17,6 @@
 package com.asa.base.lang.builder;
 
 
-import com.asa.base.lang.builder.EqualsBuilder;
-import com.asa.base.lang.builder.EqualsExclude;
-import com.asa.third.org.apache.commons.lang3.reflect.MethodUtils;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -1507,24 +1504,6 @@ public class EqualsBuilderTest extends TestCase {
         assertFalse(new EqualsBuilder().reflectionAppend(null, o2).build());
     }
 
-    @Test
-    public void testIsRegistered() throws Exception {
 
-        final Object firstObject = new Object();
-        final Object secondObject = new Object();
-
-        try {
-            final Method registerMethod = MethodUtils.getMatchingMethod(EqualsBuilder.class, "register", Object.class, Object.class);
-            registerMethod.setAccessible(true);
-            registerMethod.invoke(null, firstObject, secondObject);
-
-            assertTrue(EqualsBuilder.isRegistered(firstObject, secondObject));
-            assertTrue(EqualsBuilder.isRegistered(secondObject, firstObject)); // LANG-1349
-        } finally {
-            final Method unregisterMethod = MethodUtils.getMatchingMethod(EqualsBuilder.class, "unregister", Object.class, Object.class);
-            unregisterMethod.setAccessible(true);
-            unregisterMethod.invoke(null, firstObject, secondObject);
-        }
-    }
 }
 

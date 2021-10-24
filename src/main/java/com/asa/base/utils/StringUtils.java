@@ -39,6 +39,7 @@ public class StringUtils {
 
     /**
      * 字符串是否为空
+     *
      * @param str
      * @return
      */
@@ -49,11 +50,12 @@ public class StringUtils {
 
     /**
      * 如果为空则返回替代字符串
+     *
      * @param str
      * @param rep
      * @return
      */
-    public static String ifEmpty(String str,String rep) {
+    public static String ifEmpty(String str, String rep) {
 
         if (isEmpty(str)) {
             return rep;
@@ -155,6 +157,40 @@ public class StringUtils {
     }
 
     /**
+     * str1是否包含str2
+     *
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public static boolean contains(String str1, String str2) {
+
+        if (str1 == null || str2 == null) {
+            return false;
+        }
+        return str1.contains(str2);
+    }
+
+    /**
+     * str
+     * @param str 是否包含strs中的某一项
+     * @param strs
+     * @return
+     */
+    public static boolean containsItem(String str, List<String> strs) {
+
+        if (str == null || strs == null) {
+            return false;
+        }
+        for (String s : strs) {
+            if (contains(str, s)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * str1是否已str2结尾
      *
      * @param str1
@@ -203,6 +239,26 @@ public class StringUtils {
             return false;
         }
         return str.startsWith(prefix);
+    }
+
+    /**
+     * 字符串是否以prefixs里面的某一项开头
+     *
+     * @param str
+     * @param prefixs
+     * @return
+     */
+    public static boolean startsWithListItem(String str, List<String> prefixs) {
+
+        if (ListUtils.isEmpty(prefixs)) {
+            return false;
+        }
+        for (String s : prefixs) {
+            if (startsWith(str, s)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -325,8 +381,24 @@ public class StringUtils {
         return ret;
     }
 
+    /**
+     * 替换第一个匹配模式
+     * @param inString
+     * @param oldPattern
+     * @param newPattern
+     * @return
+     */
+    public static String replaceFirst(String inString, String oldPattern, String newPattern) {
+
+        if (inString == null || oldPattern == null || newPattern == null) {
+            return inString;
+        }
+        return inString.replaceFirst(oldPattern, newPattern);
+    }
+
 
     public static String replace(String inString, String oldPattern, String newPattern) {
+
         if (StringUtils.isEmpty(inString) || StringUtils.isEmpty(oldPattern) || newPattern == null) {
             return inString;
         }
@@ -356,18 +428,19 @@ public class StringUtils {
         return sb.toString();
     }
 
-    public static String[] delimitedListToStringArray(String str,  String delimiter) {
+    public static String[] delimitedListToStringArray(String str, String delimiter) {
+
         return delimitedListToStringArray(str, delimiter, null);
     }
 
     public static String[] delimitedListToStringArray(
-             String str, String delimiter, String charsToDelete) {
+            String str, String delimiter, String charsToDelete) {
 
         if (str == null) {
             return new String[0];
         }
         if (delimiter == null) {
-            return new String[] {str};
+            return new String[]{str};
         }
 
         List<String> result = new ArrayList<>();
@@ -375,8 +448,7 @@ public class StringUtils {
             for (int i = 0; i < str.length(); i++) {
                 result.add(deleteAny(str.substring(i, i + 1), charsToDelete));
             }
-        }
-        else {
+        } else {
             int pos = 0;
             int delPos;
             while ((delPos = str.indexOf(delimiter, pos)) != -1) {
@@ -392,11 +464,13 @@ public class StringUtils {
     }
 
     public static String delete(String inString, String pattern) {
+
         return replace(inString, pattern, "");
     }
 
 
-    public static String deleteAny(String inString,String charsToDelete) {
+    public static String deleteAny(String inString, String charsToDelete) {
+
         if (StringUtils.isEmpty(inString) || StringUtils.isEmpty(charsToDelete)) {
             return inString;
         }
@@ -413,6 +487,7 @@ public class StringUtils {
 
 
     public static String[] toStringArray(Collection<String> collection) {
+
         return collection.toArray(new String[0]);
     }
 
@@ -436,11 +511,13 @@ public class StringUtils {
 
 
     public static String collectionToDelimitedString(Collection<?> coll, String delim) {
+
         return collectionToDelimitedString(coll, delim, "", "");
     }
 
 
     public static String collectionToCommaDelimitedString(Collection<?> coll) {
+
         return collectionToDelimitedString(coll, ",");
     }
 }

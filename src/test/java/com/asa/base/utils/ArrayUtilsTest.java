@@ -83,4 +83,48 @@ public class ArrayUtilsTest {
 
         Assert.assertFalse(iterator.hasNext());
     }
+
+    @Test
+    public void arrayToList() {
+
+    }
+
+    @Test
+    public void contains() {
+
+    }
+
+    @Test
+    public void subarray() {
+
+    }
+
+    @Test
+    public void testSubarray() {
+
+        final byte[] nullArray = null;
+        final byte[] array = {10, 11, 12, 13, 14, 15};
+        final byte[] leftSubarray = {10, 11, 12, 13};
+        final byte[] midSubarray = {11, 12, 13, 14};
+        final byte[] rightSubarray = {12, 13, 14, 15};
+
+        Assert.assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)));
+        Assert.assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)));
+        Assert.assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)));
+        Assert.assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)));
+        Assert.assertNull(ArrayUtils.subarray(nullArray, 0, 3));
+        Assert.assertTrue(ArrayUtils.isEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_BYTE_ARRAY, 1, 2)));
+    }
+
+    @Test
+    public void isEquals() {
+
+        byte[] array = {10, 11, 12, 13, 14, 15};
+        Assert.assertTrue(ArrayUtils.isEquals(array, new byte[]{10, 11, 12, 13, 14, 15}));
+        Assert.assertFalse(ArrayUtils.isEquals(array, new byte[]{10, 11, 12, 13, 14, 16}));
+        Assert.assertFalse(ArrayUtils.isEquals(array, new byte[]{10}));
+        Assert.assertFalse(ArrayUtils.isEquals(array, null));
+        Assert.assertFalse(ArrayUtils.isEquals(null, new byte[]{10, 11, 12, 13, 14, 16}));
+        Assert.assertTrue(ArrayUtils.isEquals(null, null));
+    }
 }

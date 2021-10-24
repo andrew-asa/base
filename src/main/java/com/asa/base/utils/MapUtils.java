@@ -120,6 +120,23 @@ public class MapUtils {
     }
 
     /**
+     * 删除
+     * @param map
+     * @param key
+     * @param <K>
+     * @param <V>
+     * @return
+     * @throws NullPointerException
+     */
+    public static <K, V> V remove(Map<K, V> map, K key) throws NullPointerException {
+
+        if (map != null) {
+            return map.remove(key);
+        }
+        return null;
+    }
+
+    /**
      * @param contain
      * @param map
      * @param <K>
@@ -148,6 +165,7 @@ public class MapUtils {
 
     /**
      * 获取item 里面的 key 值转字符串
+     *
      * @param item
      * @param key
      * @return
@@ -175,6 +193,7 @@ public class MapUtils {
 
     /**
      * 获取map里面key的整数value
+     *
      * @param item
      * @param key
      * @param defaultValue

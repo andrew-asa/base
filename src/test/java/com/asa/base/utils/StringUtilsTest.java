@@ -3,6 +3,7 @@ package com.asa.base.utils;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -171,5 +172,60 @@ public class StringUtilsTest {
         Assert.assertTrue(StringUtils.startsWith(null, null));
         Assert.assertTrue(StringUtils.startsWith("abc", "a"));
         Assert.assertFalse(StringUtils.startsWith("abc", "b"));
+    }
+
+    @Test
+    public void startsWithListItem() {
+        List<String> l = Arrays.asList("abc","edf");
+        Assert.assertFalse(StringUtils.startsWithListItem(null, l));
+        Assert.assertFalse(StringUtils.startsWithListItem("aedf", l));
+        Assert.assertTrue(StringUtils.startsWithListItem("abcedf", l));
+        Assert.assertTrue(StringUtils.startsWithListItem("edfabc", l));
+        Assert.assertFalse(StringUtils.startsWithListItem("edfabc", null));
+    }
+
+    @Test
+    public void contains() {
+
+        Assert.assertFalse(StringUtils.contains("aedf", "lll"));
+        Assert.assertFalse(StringUtils.contains("aedf", "af"));
+        Assert.assertFalse(StringUtils.contains(null, "af"));
+        Assert.assertFalse(StringUtils.contains("null", null));
+        Assert.assertFalse(StringUtils.contains(null, null));
+        Assert.assertTrue(StringUtils.contains("aedf", "a"));
+        Assert.assertTrue(StringUtils.contains("aedf", "ae"));
+        Assert.assertTrue(StringUtils.contains("aedf", "aed"));
+        Assert.assertTrue(StringUtils.contains("aedf", "aedf"));
+        Assert.assertTrue(StringUtils.contains("aedf", "df"));
+        Assert.assertTrue(StringUtils.contains("aedf", "ed"));
+        Assert.assertTrue(StringUtils.contains("aedf", "edf"));
+
+    }
+
+    @Test
+    public void containsItem() {
+        List<String> l = Arrays.asList("abc","edf");
+        Assert.assertFalse(StringUtils.containsItem(null, l));
+        Assert.assertFalse(StringUtils.containsItem(null, null));
+        Assert.assertFalse(StringUtils.containsItem("null", null));
+        Assert.assertTrue(StringUtils.containsItem("abcedf", l));
+        Assert.assertTrue(StringUtils.containsItem("edfgg", l));
+        Assert.assertTrue(StringUtils.containsItem("abceee", l));
+        Assert.assertFalse(StringUtils.containsItem("aefeee", l));
+    }
+
+    @Test
+    public void replaceFirst() {
+
+        String in = "abcefcabc";
+        Assert.assertEquals(StringUtils.replaceFirst(in,"abc",""),"efcabc");
+        Assert.assertNull(StringUtils.replaceFirst(null,"abc",""));
+        Assert.assertEquals(StringUtils.replaceFirst(in,"abc",null),in);
+    }
+
+    @Test
+    public void replace() {
+        String in = "abcefcabc";
+        Assert.assertEquals(StringUtils.replace(in,"abc",""),"efc");
     }
 }

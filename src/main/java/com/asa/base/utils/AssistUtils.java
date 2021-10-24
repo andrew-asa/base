@@ -1,20 +1,17 @@
 package com.asa.base.utils;
 
-import com.asa.third.org.apache.commons.lang3.SystemUtils;
-import com.asa.third.org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import com.asa.third.org.apache.commons.lang3.builder.ToStringBuilder;
-import com.asa.third.org.apache.commons.lang3.builder.ToStringStyle;
+
 
 
 public class AssistUtils {
 
-    private static final ToStringStyle EMB_TO_STRING_STYLE = new FineToStringStyle();
+    //private static final ToStringStyle EMB_TO_STRING_STYLE = new FineToStringStyle();
     private static final float FLOAT_DELTA = 1e-6f;
     private static final double DOUBLE_DELTA = 1e-10;
 
-    static {
-        ReflectionToStringBuilder.setDefaultStyle(EMB_TO_STRING_STYLE);
-    }
+    //static {
+    //    ReflectionToStringBuilder.setDefaultStyle(EMB_TO_STRING_STYLE);
+    //}
 
     /**
      * 判断 double 类型是否相等。
@@ -151,10 +148,10 @@ public class AssistUtils {
      * @param target 对象
      * @return 文本
      */
-    public static String toString(Object target) {
-
-        return ToStringBuilder.reflectionToString(target, EMB_TO_STRING_STYLE);
-    }
+    //public static String toString(Object target) {
+    //
+    //    return ToStringBuilder.reflectionToString(target, EMB_TO_STRING_STYLE);
+    //}
 
     /**
      * 对象的的toString方法
@@ -163,29 +160,29 @@ public class AssistUtils {
      * @param excludes 要排除掉的属性名
      * @return 文本
      */
-    public static String toString(Object target, String... excludes) {
+    //public static String toString(Object target, String... excludes) {
+    //
+    //    return ReflectionToStringBuilder.toStringExclude(target, excludes);
+    //}
 
-        return ReflectionToStringBuilder.toStringExclude(target, excludes);
-    }
-
-    private static final class FineToStringStyle extends ToStringStyle {
-
-        private static final long serialVersionUID = 1L;
-
-        FineToStringStyle() {
-
-            super();
-            this.setContentStart("[");
-            this.setFieldSeparator(SystemUtils.LINE_SEPARATOR + "  ");
-            this.setFieldSeparatorAtStart(true);
-            this.setContentEnd(SystemUtils.LINE_SEPARATOR + "]");
-            this.setUseShortClassName(true);
-            this.setUseIdentityHashCode(false);
-        }
-
-        private Object readResolve() {
-
-            return AssistUtils.EMB_TO_STRING_STYLE;
-        }
-    }
+    //private static final class FineToStringStyle extends ToStringStyle {
+    //
+    //    private static final long serialVersionUID = 1L;
+    //
+    //    FineToStringStyle() {
+    //
+    //        super();
+    //        this.setContentStart("[");
+    //        this.setFieldSeparator(SystemUtils.LINE_SEPARATOR + "  ");
+    //        this.setFieldSeparatorAtStart(true);
+    //        this.setContentEnd(SystemUtils.LINE_SEPARATOR + "]");
+    //        this.setUseShortClassName(true);
+    //        this.setUseIdentityHashCode(false);
+    //    }
+    //
+    //    private Object readResolve() {
+    //
+    //        return AssistUtils.EMB_TO_STRING_STYLE;
+    //    }
+    //}
 }

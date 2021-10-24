@@ -20,10 +20,12 @@ public class FileUtils {
     /**
      * 更新最后修改时间
      * 文件不存在就新建
+     *
      * @param file
      * @throws IOException
      */
     public static void touch(File file) throws IOException {
+
         if (!file.exists()) {
             OutputStream out = openOutputStream(file);
             IOUtils.closeQuietly(out);
@@ -35,6 +37,7 @@ public class FileUtils {
     }
 
     public static FileOutputStream openOutputStream(File file) throws IOException {
+
         if (file.exists()) {
             if (file.isDirectory()) {
                 throw new IOException("File '" + file + "' exists but is a directory");
@@ -76,10 +79,12 @@ public class FileUtils {
 
     /**
      * 强制生成文件夹
+     *
      * @param directory
      * @throws IOException
      */
     public static void forceMkdir(File directory) throws IOException {
+
         if (directory.exists()) {
             if (directory.isFile()) {
                 String message =
@@ -99,11 +104,24 @@ public class FileUtils {
     }
 
     /**
+     * 强制生成目录
+     *
+     * @param directory
+     * @throws IOException
+     */
+    public static void forceMkdir(String directory) throws IOException {
+
+        forceMkdir(new File(directory));
+    }
+
+    /**
      * 目录长度
+     *
      * @param directory
      * @return
      */
     public static long sizeOfDirectory(File directory) {
+
         if (!directory.exists()) {
             String message = directory + " does not exist";
             throw new IllegalArgumentException(message);
@@ -135,16 +153,19 @@ public class FileUtils {
 
     /**
      * 文件复制
+     *
      * @param srcFile
      * @param destFile
      * @throws IOException
      */
     public static void copyFile(File srcFile, File destFile) throws IOException {
+
         copyFile(srcFile, destFile, true);
     }
 
     /**
      * 复制文件
+     *
      * @param srcFile
      * @param destFile
      * @param preserveFileDate 是否复制最后修改时间
@@ -152,6 +173,7 @@ public class FileUtils {
      */
     public static void copyFile(File srcFile, File destFile,
                                 boolean preserveFileDate) throws IOException {
+
         if (srcFile == null) {
             throw new NullPointerException("Source must not be null");
         }
@@ -183,15 +205,15 @@ public class FileUtils {
      *
      * @param srcDir
      * @param destDir
-     * @param preserveFileDate  文件修改文件是否和源文件一样
-     *
+     * @param preserveFileDate 文件修改文件是否和源文件一样
      * @throws NullPointerException if source or destination is <code>null</code>
-     * @throws IOException if source or destination is invalid
-     * @throws IOException if an IO error occurs during copying
+     * @throws IOException          if source or destination is invalid
+     * @throws IOException          if an IO error occurs during copying
      * @since Commons IO 1.1
      */
     public static void copyDirectory(File srcDir, File destDir,
                                      boolean preserveFileDate) throws IOException {
+
         if (srcDir == null) {
             throw new NullPointerException("Source must not be null");
         }
@@ -212,21 +234,25 @@ public class FileUtils {
 
     /**
      * 文件夹下的文件全复制
+     *
      * @param srcDir
      * @param destDir
      * @throws IOException
      */
     public static void copyDirectory(File srcDir, File destDir) throws IOException {
+
         copyDirectory(srcDir, destDir, true);
     }
 
     /**
      * 复制文件目录到新的目录
+     *
      * @param srcDir
      * @param destDir
      * @throws IOException
      */
     public static void copyDirectoryToDirectory(File srcDir, File destDir) throws IOException {
+
         if (srcDir == null) {
             throw new NullPointerException("Source must not be null");
         }
@@ -244,12 +270,14 @@ public class FileUtils {
 
     /**
      * 文件转行迭代器
+     *
      * @param file
-     * @param encoding  编码类型
+     * @param encoding 编码类型
      * @return
      * @throws IOException
      */
     public static LineIterator lineIterator(File file, String encoding) throws IOException {
+
         InputStream in = null;
         try {
             in = openInputStream(file);
@@ -265,15 +293,18 @@ public class FileUtils {
 
     /**
      * 文件转行迭代器,默认使用utf-8进行读取文件字符流
+     *
      * @param file
      * @return
      * @throws IOException
      */
     public static LineIterator lineIterator(File file) throws IOException {
+
         return lineIterator(file, EncodeConstants.ENCODING_UTF_8);
     }
 
     public static FileInputStream openInputStream(File file) throws IOException {
+
         if (file.exists()) {
             if (file.isDirectory()) {
                 throw new IOException("File '" + file + "' exists but is a directory");
@@ -289,12 +320,14 @@ public class FileUtils {
 
     /**
      * 文件复制
+     *
      * @param srcFile
      * @param destFile
      * @param preserveFileDate
      * @throws IOException
      */
     private static void doCopyFile(File srcFile, File destFile, boolean preserveFileDate) throws IOException {
+
         if (destFile.exists() && destFile.isDirectory()) {
             throw new IOException("Destination '" + destFile + "' exists but is a directory");
         }
@@ -322,12 +355,14 @@ public class FileUtils {
 
     /**
      * 文件夹复制
+     *
      * @param srcDir
      * @param destDir
      * @param preserveFileDate
      * @throws IOException
      */
     private static void doCopyDirectory(File srcDir, File destDir, boolean preserveFileDate) throws IOException {
+
         if (destDir.exists()) {
             if (destDir.isDirectory() == false) {
                 throw new IOException("Destination '" + destDir + "' exists but is not a directory");
@@ -355,6 +390,18 @@ public class FileUtils {
             } else {
                 doCopyFile(files[i], copiedFile, preserveFileDate);
             }
+        }
+    }
+
+    public static String systemFilePathToString(String path) throws IOException {
+
+        FileSystemResource resource = new FileSystemResource(path);
+        InputStream inputStream = null;
+        try {
+            inputStream = resource.getInputStream();
+            return IOUtils.inputStream2String(inputStream);
+        } finally {
+            IOUtils.closeQuietly(inputStream);
         }
     }
 }

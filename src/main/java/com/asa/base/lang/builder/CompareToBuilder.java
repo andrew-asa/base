@@ -16,13 +16,11 @@
  */
 package com.asa.base.lang.builder;
 
-import com.asa.third.org.apache.commons.lang3.ArrayUtils;
-import com.asa.third.org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import com.asa.base.utils.ArrayUtils;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Objects;
 

@@ -1,7 +1,10 @@
 package com.asa.base.utils.io;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
+
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
@@ -189,5 +192,82 @@ public class FilenameUtilsTest {
     @Test
     public void testGetName() {
 
+    }
+
+    @Test
+    public void touch() {
+
+    }
+
+    @Test
+    public void openOutputStream() {
+
+    }
+
+    @Test
+    public void deleteFile() {
+
+    }
+
+    @Test
+    public void forceMkdir() {
+
+    }
+
+    @Test
+    public void testForceMkdir() {
+
+    }
+
+    @Test
+    public void sizeOfDirectory() {
+
+    }
+
+    @Test
+    public void copyFile() {
+
+    }
+
+    @Test
+    public void testCopyFile() {
+
+    }
+
+    @Test
+    public void copyDirectory() {
+
+    }
+
+    @Test
+    public void testCopyDirectory() {
+
+    }
+
+    @Test
+    public void copyDirectoryToDirectory() {
+
+    }
+
+    @Test
+    public void lineIterator() {
+
+    }
+
+    @Test
+    public void testLineIterator() {
+
+    }
+
+    @Test
+    public void openInputStream() {
+
+    }
+
+    @Ignore
+    @Test
+    public void systemFilePathToString() throws IOException {
+
+        System.out.println(FileUtils.systemFilePathToString("/etc/hosts"));
     }
 }
