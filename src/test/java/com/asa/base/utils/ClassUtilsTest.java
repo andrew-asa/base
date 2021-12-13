@@ -1,6 +1,7 @@
 package com.asa.base.utils;
 
 import org.junit.Test;
+import org.junit.Assert;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -30,6 +31,40 @@ public class ClassUtilsTest {
                                                              new Class[]{SimpleValue.class},
                                                              ph);
         c.echo("hello");
+    }
+
+    @Test
+    public void getDefaultClassLoader() {
+
+    }
+
+    @Test
+    public void classPackageAsResourcePath() {
+
+    }
+
+    @Test
+    public void isPrimitiveOrWrapper() {
+
+    }
+
+    @Test
+    public void isPrimitiveWrapper() {
+
+    }
+
+
+    @Test
+    public void classNameToResourcePath() {
+
+        Assert.assertEquals(ClassUtils.classNameToResourcePath("com.asa.ClassUtils"), "com/asa/ClassUtils");
+
+    }
+
+    @Test
+    public void resourcePathToClassName() {
+
+        Assert.assertEquals(ClassUtils.resourcePathToClassName("com/asa/ClassUtils"), "com.asa.ClassUtils");
     }
 
     class Ph implements InvocationHandler {

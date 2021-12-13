@@ -3,6 +3,7 @@ package com.asa.base.utils;
 import java.io.Closeable;
 import java.io.Externalizable;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -22,28 +23,44 @@ import java.util.Set;
  */
 public class ClassUtils {
 
-    /** Suffix for array class names: {@code "[]"}. */
+    /**
+     * Suffix for array class names: {@code "[]"}.
+     */
     public static final String ARRAY_SUFFIX = "[]";
 
-    /** Prefix for internal array class names: {@code "["}. */
+    /**
+     * Prefix for internal array class names: {@code "["}.
+     */
     private static final String INTERNAL_ARRAY_PREFIX = "[";
 
-    /** Prefix for internal non-primitive array class names: {@code "[L"}. */
+    /**
+     * Prefix for internal non-primitive array class names: {@code "[L"}.
+     */
     private static final String NON_PRIMITIVE_ARRAY_PREFIX = "[L";
 
-    /** The package separator character: {@code '.'}. */
+    /**
+     * The package separator character: {@code '.'}.
+     */
     private static final char PACKAGE_SEPARATOR = '.';
 
-    /** The path separator character: {@code '/'}. */
+    /**
+     * The path separator character: {@code '/'}.
+     */
     private static final char PATH_SEPARATOR = '/';
 
-    /** The inner class separator character: {@code '$'}. */
+    /**
+     * The inner class separator character: {@code '$'}.
+     */
     private static final char INNER_CLASS_SEPARATOR = '$';
 
-    /** The CGLIB class separator: {@code "$$"}. */
+    /**
+     * The CGLIB class separator: {@code "$$"}.
+     */
     public static final String CGLIB_CLASS_SEPARATOR = "$$";
 
-    /** The ".class" file suffix. */
+    /**
+     * The ".class" file suffix.
+     */
     public static final String CLASS_FILE_SUFFIX = ".class";
 
 
@@ -134,6 +151,7 @@ public class ClassUtils {
         primitiveWrapperMap.put(Float.TYPE, Float.class);
         primitiveWrapperMap.put(Void.TYPE, Void.TYPE);
     }
+
     /**
      * Maps wrapper {@code Class}es to their corresponding primitive types.
      */
@@ -153,17 +171,18 @@ public class ClassUtils {
      * Register the given common classes with the ClassUtils cache.
      */
     private static void registerCommonClasses(Class<?>... commonClasses) {
+
         for (Class<?> clazz : commonClasses) {
             commonClassCache.put(clazz.getName(), clazz);
         }
     }
 
     public static ClassLoader getDefaultClassLoader() {
+
         ClassLoader cl = null;
         try {
             cl = Thread.currentThread().getContextClassLoader();
-        }
-        catch (Throwable ex) {
+        } catch (Throwable ex) {
             // Cannot access thread context ClassLoader - falling back...
         }
         if (cl == null) {
@@ -173,8 +192,7 @@ public class ClassUtils {
                 // getClassLoader() returning null indicates the bootstrap ClassLoader
                 try {
                     cl = ClassLoader.getSystemClassLoader();
-                }
-                catch (Throwable ex) {
+                } catch (Throwable ex) {
                     // Cannot access system ClassLoader - oh well, maybe the caller can live with null...
                 }
             }
@@ -183,6 +201,7 @@ public class ClassUtils {
     }
 
     public static String classPackageAsResourcePath(Class<?> clazz) {
+
         if (clazz == null) {
             return "";
         }
@@ -196,6 +215,7 @@ public class ClassUtils {
     }
 
     public static boolean isPrimitiveOrWrapper(final Class<?> type) {
+
         if (type == null) {
             return false;
         }
@@ -203,6 +223,98 @@ public class ClassUtils {
     }
 
     public static boolean isPrimitiveWrapper(final Class<?> type) {
+
         return wrapperPrimitiveMap.containsKey(type);
+    }
+
+    /**
+     * 类名转资源名
+     *
+     * @param className
+     * @return
+     */
+    public static String classNameToResourcePath(String className) {
+
+        if (StringUtils.isNotEmpty(className)) {
+            return className.replace('.', '/');
+        } else {
+            return className;
+        }
+    }
+
+    /**
+     * 资源名字转class路径
+     *
+     * @param resourcePath
+     * @return
+     */
+    public static String resourcePathToClassName(String resourcePath) {
+
+        if (StringUtils.isNotEmpty(resourcePath)) {
+            return resourcePath.replace('/', '.');
+        } else {
+            return resourcePath;
+        }
+    }
+
+
+    public static Class<?> forName(String name, ClassLoader classLoader) throws ClassNotFoundException, LinkageError {
+
+        Assert.notNull(name, "Name must not be null");
+        Class<?> clazz = resolvePrimitiveClassName(name);
+        if (clazz == null) {
+            clazz = (Class) commonClassCache.get(name);
+        }
+
+        if (clazz != null) {
+            return clazz;
+        } else {
+            Class elementClass;
+            String elementName;
+            if (name.endsWith("[]")) {
+                elementName = name.substring(0, name.length() - "[]".length());
+                elementClass = forName(elementName, classLoader);
+                return Array.newInstance(elementClass, 0).getClass();
+            } else if (name.startsWith("[L") && name.endsWith(";")) {
+                elementName = name.substring("[L".length(), name.length() - 1);
+                elementClass = forName(elementName, classLoader);
+                return Array.newInstance(elementClass, 0).getClass();
+            } else if (name.startsWith("[")) {
+                elementName = name.substring("[".length());
+                elementClass = forName(elementName, classLoader);
+                return Array.newInstance(elementClass, 0).getClass();
+            } else {
+                ClassLoader clToUse = classLoader;
+                if (classLoader == null) {
+                    clToUse = getDefaultClassLoader();
+                }
+
+                try {
+                    return clToUse != null ? clToUse.loadClass(name) : Class.forName(name);
+                } catch (ClassNotFoundException var9) {
+                    int lastDotIndex = name.lastIndexOf(46);
+                    if (lastDotIndex != -1) {
+                        String innerClassName = name.substring(0, lastDotIndex) + '$' + name.substring(lastDotIndex + 1);
+
+                        try {
+                            return clToUse != null ? clToUse.loadClass(innerClassName) : Class.forName(innerClassName);
+                        } catch (ClassNotFoundException var8) {
+                        }
+                    }
+
+                    throw var9;
+                }
+            }
+        }
+    }
+
+    public static Class<?> resolvePrimitiveClassName(String name) {
+
+        Class<?> result = null;
+        if (name != null && name.length() <= 8) {
+            result = (Class) primitiveTypeNameMap.get(name);
+        }
+
+        return result;
     }
 }

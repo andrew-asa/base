@@ -6,6 +6,9 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author andrew_asa
  * @date 2018/10/16.
@@ -15,12 +18,12 @@ public class StringUtilsTest {
     @Test
     public void equals() throws Exception {
 
-        Assert.assertTrue(StringUtils.equals("a", "a"));
-        Assert.assertFalse(StringUtils.equals("a", "A"));
-        Assert.assertFalse(StringUtils.equals(null, "A"));
-        Assert.assertTrue(StringUtils.equals(null, null));
-        Assert.assertTrue(StringUtils.equals("aBa", "aBa"));
-        Assert.assertFalse(StringUtils.equals("aba", "aBa"));
+        assertTrue(StringUtils.equals("a", "a"));
+        assertFalse(StringUtils.equals("a", "A"));
+        assertFalse(StringUtils.equals(null, "A"));
+        assertTrue(StringUtils.equals(null, null));
+        assertTrue(StringUtils.equals("aBa", "aBa"));
+        assertFalse(StringUtils.equals("aba", "aBa"));
     }
 
     @Test
@@ -42,9 +45,9 @@ public class StringUtilsTest {
     @Test
     public void isNotEmpty() throws Exception {
 
-        Assert.assertTrue(StringUtils.isNotEmpty("a"));
-        Assert.assertFalse(StringUtils.isNotEmpty(""));
-        Assert.assertFalse(StringUtils.isNotEmpty(null));
+        assertTrue(StringUtils.isNotEmpty("a"));
+        assertFalse(StringUtils.isNotEmpty(""));
+        assertFalse(StringUtils.isNotEmpty(null));
     }
 
     @Test
@@ -55,15 +58,15 @@ public class StringUtilsTest {
     @Test
     public void equalsIgnoreCase() throws Exception {
 
-        Assert.assertTrue(StringUtils.equalsIgnoreCase("abc", "ABC"));
-        Assert.assertFalse(StringUtils.equalsIgnoreCase("abc", "bBC"));
+        assertTrue(StringUtils.equalsIgnoreCase("abc", "ABC"));
+        assertFalse(StringUtils.equalsIgnoreCase("abc", "bBC"));
     }
 
     @Test
     public void split() throws Exception {
 
         String[] ab = StringUtils.split("abc", "ab");
-        Assert.assertTrue(ab.length == 2);
+        assertTrue(ab.length == 2);
     }
 
     @Test
@@ -92,10 +95,10 @@ public class StringUtilsTest {
     public void startsWith() throws Exception {
 
         String str = null;
-        Assert.assertFalse(StringUtils.startsWith(str, "a"));
+        assertFalse(StringUtils.startsWith(str, "a"));
         str = "ab";
-        Assert.assertFalse(StringUtils.startsWith(str, null));
-        Assert.assertTrue(StringUtils.startsWith(str, "ab"));
+        assertFalse(StringUtils.startsWith(str, null));
+        assertTrue(StringUtils.startsWith(str, "ab"));
     }
 
     @Test
@@ -117,25 +120,25 @@ public class StringUtilsTest {
 
         String str1 = "abcDefGHiGk";
         String str2 = "ab";
-        Assert.assertTrue(StringUtils.containsIgnoreCase(str1, str2));
+        assertTrue(StringUtils.containsIgnoreCase(str1, str2));
         str2 = "Bc";
-        Assert.assertTrue(StringUtils.containsIgnoreCase(str1, str2));
+        assertTrue(StringUtils.containsIgnoreCase(str1, str2));
         str2 = "cd";
-        Assert.assertTrue(StringUtils.containsIgnoreCase(str1, str2));
+        assertTrue(StringUtils.containsIgnoreCase(str1, str2));
         str2 = null;
-        Assert.assertFalse(StringUtils.containsIgnoreCase(str1, str2));
+        assertFalse(StringUtils.containsIgnoreCase(str1, str2));
     }
 
     @Test
     public void isEmpty() throws Exception {
 
         String fs = "abs{}ccc";
-        Assert.assertTrue(StringUtils.isEmpty(null));
-        Assert.assertTrue(StringUtils.isEmpty(""));
-        Assert.assertFalse(StringUtils.isNotEmpty(null));
-        Assert.assertFalse(StringUtils.isNotEmpty(""));
-        Assert.assertFalse(StringUtils.isEmpty(fs));
-        Assert.assertTrue(StringUtils.isNotEmpty(fs));
+        assertTrue(StringUtils.isEmpty(null));
+        assertTrue(StringUtils.isEmpty(""));
+        assertFalse(StringUtils.isNotEmpty(null));
+        assertFalse(StringUtils.isNotEmpty(""));
+        assertFalse(StringUtils.isEmpty(fs));
+        assertTrue(StringUtils.isNotEmpty(fs));
     }
 
     @Test
@@ -157,61 +160,61 @@ public class StringUtilsTest {
     @Test
     public void endWith() {
 
-        Assert.assertFalse(StringUtils.endWith(null, ""));
-        Assert.assertFalse(StringUtils.endWith("", null));
-        Assert.assertTrue(StringUtils.endWith(null, null));
-        Assert.assertTrue(StringUtils.endWith("abc", "c"));
-        Assert.assertFalse(StringUtils.endWith("abc", "b"));
+        assertFalse(StringUtils.endWith(null, ""));
+        assertFalse(StringUtils.endWith("", null));
+        assertTrue(StringUtils.endWith(null, null));
+        assertTrue(StringUtils.endWith("abc", "c"));
+        assertFalse(StringUtils.endWith("abc", "b"));
     }
 
     @Test
     public void startWith() {
 
-        Assert.assertFalse(StringUtils.startsWith(null, ""));
-        Assert.assertFalse(StringUtils.startsWith("", null));
-        Assert.assertTrue(StringUtils.startsWith(null, null));
-        Assert.assertTrue(StringUtils.startsWith("abc", "a"));
-        Assert.assertFalse(StringUtils.startsWith("abc", "b"));
+        assertFalse(StringUtils.startsWith(null, ""));
+        assertFalse(StringUtils.startsWith("", null));
+        assertTrue(StringUtils.startsWith(null, null));
+        assertTrue(StringUtils.startsWith("abc", "a"));
+        assertFalse(StringUtils.startsWith("abc", "b"));
     }
 
     @Test
     public void startsWithListItem() {
         List<String> l = Arrays.asList("abc","edf");
-        Assert.assertFalse(StringUtils.startsWithListItem(null, l));
-        Assert.assertFalse(StringUtils.startsWithListItem("aedf", l));
-        Assert.assertTrue(StringUtils.startsWithListItem("abcedf", l));
-        Assert.assertTrue(StringUtils.startsWithListItem("edfabc", l));
-        Assert.assertFalse(StringUtils.startsWithListItem("edfabc", null));
+        assertFalse(StringUtils.startsWithListItem(null, l));
+        assertFalse(StringUtils.startsWithListItem("aedf", l));
+        assertTrue(StringUtils.startsWithListItem("abcedf", l));
+        assertTrue(StringUtils.startsWithListItem("edfabc", l));
+        assertFalse(StringUtils.startsWithListItem("edfabc", null));
     }
 
     @Test
     public void contains() {
 
-        Assert.assertFalse(StringUtils.contains("aedf", "lll"));
-        Assert.assertFalse(StringUtils.contains("aedf", "af"));
-        Assert.assertFalse(StringUtils.contains(null, "af"));
-        Assert.assertFalse(StringUtils.contains("null", null));
-        Assert.assertFalse(StringUtils.contains(null, null));
-        Assert.assertTrue(StringUtils.contains("aedf", "a"));
-        Assert.assertTrue(StringUtils.contains("aedf", "ae"));
-        Assert.assertTrue(StringUtils.contains("aedf", "aed"));
-        Assert.assertTrue(StringUtils.contains("aedf", "aedf"));
-        Assert.assertTrue(StringUtils.contains("aedf", "df"));
-        Assert.assertTrue(StringUtils.contains("aedf", "ed"));
-        Assert.assertTrue(StringUtils.contains("aedf", "edf"));
+        assertFalse(StringUtils.contains("aedf", "lll"));
+        assertFalse(StringUtils.contains("aedf", "af"));
+        assertFalse(StringUtils.contains(null, "af"));
+        assertFalse(StringUtils.contains("null", null));
+        assertFalse(StringUtils.contains(null, null));
+        assertTrue(StringUtils.contains("aedf", "a"));
+        assertTrue(StringUtils.contains("aedf", "ae"));
+        assertTrue(StringUtils.contains("aedf", "aed"));
+        assertTrue(StringUtils.contains("aedf", "aedf"));
+        assertTrue(StringUtils.contains("aedf", "df"));
+        assertTrue(StringUtils.contains("aedf", "ed"));
+        assertTrue(StringUtils.contains("aedf", "edf"));
 
     }
 
     @Test
     public void containsItem() {
         List<String> l = Arrays.asList("abc","edf");
-        Assert.assertFalse(StringUtils.containsItem(null, l));
-        Assert.assertFalse(StringUtils.containsItem(null, null));
-        Assert.assertFalse(StringUtils.containsItem("null", null));
-        Assert.assertTrue(StringUtils.containsItem("abcedf", l));
-        Assert.assertTrue(StringUtils.containsItem("edfgg", l));
-        Assert.assertTrue(StringUtils.containsItem("abceee", l));
-        Assert.assertFalse(StringUtils.containsItem("aefeee", l));
+        assertFalse(StringUtils.containsItem(null, l));
+        assertFalse(StringUtils.containsItem(null, null));
+        assertFalse(StringUtils.containsItem("null", null));
+        assertTrue(StringUtils.containsItem("abcedf", l));
+        assertTrue(StringUtils.containsItem("edfgg", l));
+        assertTrue(StringUtils.containsItem("abceee", l));
+        assertFalse(StringUtils.containsItem("aefeee", l));
     }
 
     @Test
@@ -227,5 +230,71 @@ public class StringUtilsTest {
     public void replace() {
         String in = "abcefcabc";
         Assert.assertEquals(StringUtils.replace(in,"abc",""),"efc");
+    }
+
+    @Test
+    public void testClone() {
+
+    }
+
+    @Test
+    public void ifEmpty() {
+
+    }
+
+    @Test
+    public void testIsBlank() {
+        assertTrue(StringUtils.isBlank(null));
+        assertTrue(StringUtils.isBlank(""));
+        assertFalse(StringUtils.isBlank("foo"));
+        assertFalse(StringUtils.isBlank("  foo  "));
+    }
+
+    @Test
+    public void testIsNotBlank() {
+        assertFalse(StringUtils.isNotBlank(null));
+        assertFalse(StringUtils.isNotBlank(""));
+        assertTrue(StringUtils.isNotBlank("foo"));
+        assertTrue(StringUtils.isNotBlank("  foo  "));
+    }
+
+    @Test
+    public void delimitedListToStringArray() {
+
+    }
+
+    @Test
+    public void testDelimitedListToStringArray() {
+
+    }
+
+    @Test
+    public void delete() {
+
+    }
+
+    @Test
+    public void deleteAny() {
+
+    }
+
+    @Test
+    public void toStringArray() {
+
+    }
+
+    @Test
+    public void collectionToDelimitedString() {
+
+    }
+
+    @Test
+    public void testCollectionToDelimitedString() {
+
+    }
+
+    @Test
+    public void collectionToCommaDelimitedString() {
+
     }
 }

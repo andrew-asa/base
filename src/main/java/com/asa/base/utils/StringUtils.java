@@ -40,12 +40,12 @@ public class StringUtils {
     /**
      * 字符串是否为空
      *
-     * @param str
+     * @param cs
      * @return
      */
-    public static boolean isEmpty(String str) {
+    public static boolean isEmpty(final CharSequence cs) {
 
-        return str == null || str.length() == 0;
+        return cs == null || cs.length() == 0;
     }
 
     /**
@@ -67,6 +67,67 @@ public class StringUtils {
     public static boolean isNotEmpty(String str) {
 
         return !isEmpty(str);
+    }
+
+    /**
+     * 是否为空白
+     * StringUtils.isBlank(null)      = true
+     * StringUtils.isBlank("")        = true
+     * StringUtils.isBlank(" ")       = true
+     * StringUtils.isBlank("bob")     = false
+     * StringUtils.isBlank("  bob  ") = false
+     *
+     * @param cs
+     * @return
+     */
+    public static boolean isBlank(final CharSequence cs) {
+
+        final int strLen = length(cs);
+        if (strLen == 0) {
+            return true;
+        }
+        for (int i = 0; i < strLen; i++) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isNotBlank(final CharSequence cs) {
+
+        return !isBlank(cs);
+    }
+
+    /**
+     * 是否为数字，检测的是每一个字符，所以带有正负号的都不是。
+     * StringUtils.isNumeric(null)   = false
+     * StringUtils.isNumeric("")     = false
+     * StringUtils.isNumeric("  ")   = false
+     * StringUtils.isNumeric("123")  = true
+     * StringUtils.isNumeric("\u0967\u0968\u0969")  = true
+     * StringUtils.isNumeric("12 3") = false
+     * StringUtils.isNumeric("ab2c") = false
+     * StringUtils.isNumeric("12-3") = false
+     * StringUtils.isNumeric("12.3") = false
+     * StringUtils.isNumeric("-123") = false
+     * StringUtils.isNumeric("+123") = false
+     *
+     * @param cs
+     * @return
+     */
+    public static boolean isNumeric(final CharSequence cs) {
+
+        if (isEmpty(cs)) {
+            return false;
+        }
+        final int sz = cs.length();
+        for (int i = 0; i < sz; i++) {
+            if (!Character.isDigit(cs.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static String messageFormat(String format, Object... args) {
@@ -173,7 +234,8 @@ public class StringUtils {
 
     /**
      * str
-     * @param str 是否包含strs中的某一项
+     *
+     * @param str  是否包含strs中的某一项
      * @param strs
      * @return
      */
@@ -212,15 +274,12 @@ public class StringUtils {
     /**
      * 字符串长度
      *
-     * @param string
+     * @param cs
      * @return
      */
-    public static int length(String string) {
+    public static int length(final CharSequence cs) {
 
-        if (isEmpty(string)) {
-            return 0;
-        }
-        return string.length();
+        return cs == null ? 0 : cs.length();
     }
 
     /**
@@ -383,6 +442,7 @@ public class StringUtils {
 
     /**
      * 替换第一个匹配模式
+     *
      * @param inString
      * @param oldPattern
      * @param newPattern

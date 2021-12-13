@@ -2,6 +2,7 @@ package com.asa.base.utils.io;
 
 import com.asa.base.log.LoggerFactory;
 import com.asa.base.utils.EncodeConstants;
+import com.asa.base.utils.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -393,6 +394,13 @@ public class FileUtils {
         }
     }
 
+    /**
+     * 系统路径文件读取转字符串
+     *
+     * @param path
+     * @return
+     * @throws IOException
+     */
     public static String systemFilePathToString(String path) throws IOException {
 
         FileSystemResource resource = new FileSystemResource(path);
@@ -403,5 +411,146 @@ public class FileUtils {
         } finally {
             IOUtils.closeQuietly(inputStream);
         }
+    }
+
+    /**
+     * 字符串保存到系统文件
+     *
+     * @param text
+     * @param path
+     * @throws IOException
+     */
+    public static void stringSaveToSystemFilePath(String text, String path) throws IOException {
+
+        stringSaveToSystemFilePath(text, path, null);
+    }
+
+    /**
+     * 字符串保存到系统文件
+     *
+     * @param text
+     * @param path
+     * @param encoding text编码
+     * @throws IOException
+     */
+    public static void stringSaveToSystemFilePath(String text, String path, String encoding) throws IOException {
+
+        FileSystemResource resource = new FileSystemResource(path);
+        OutputStream out = null;
+        try {
+            out = resource.getOutputStream();
+            if (StringUtils.isNotEmpty(encoding)) {
+                IOUtils.write(text, out, encoding);
+            } else {
+                IOUtils.write(text, out);
+            }
+        } finally {
+            IOUtils.closeQuietly(out);
+        }
+    }
+
+    /**
+     * 一样的文件名
+     * 注意：f不是文件即时名字一样也不是一样的文件名
+     *
+     * @param f
+     * @param fileName
+     * @return
+     */
+    public static boolean isSameFileName(File f, String fileName) {
+
+        return f != null && f.isFile() && StringUtils.equals(f.getName(), fileName);
+    }
+
+    /**
+     * 文件夹下是否存在某个文件
+     *
+     * @param dir              文件夹目录
+     * @param fileName         文件名称
+     * @param maxRecursionLeve 最大递归层数
+     *                         <0 则表示判断dir是否是fileName指定的文件
+     *                         =0 当前文件夹是否存在fileName指定文件
+     *                         >0 指定层次文件夹中是否存在fileName指定文件
+     * @return
+     */
+    public static boolean existFile(String dir, String fileName, int maxRecursionLeve) {
+
+        return existFile(new File(dir), fileName, maxRecursionLeve);
+    }
+
+    /**
+     * 文件夹下是否存在某个文件
+     *
+     * @param dir              文件夹目录
+     * @param fileName         文件名称
+     * @param maxRecursionLeve 最大递归层数
+     *                         <0 则表示判断dir是否是fileName指定的文件
+     *                         =0 当前文件夹是否存在fileName指定文件
+     *                         >0 指定层次文件夹中是否存在fileName指定文件
+     * @return
+     */
+    public static boolean existFile(File dir, String fileName, int maxRecursionLeve) {
+
+        if (dir == null || !dir.exists() || StringUtils.isEmpty(fileName)) {
+            return false;
+        }
+        if (maxRecursionLeve < 0) {
+            return isSameFileName(dir, fileName);
+        } else if (maxRecursionLeve == 0) {
+            return existFile(dir, fileName);
+        } else {
+            // 当前文件夹是否存在
+            boolean currentDirExist = existFile(dir, fileName);
+            if (currentDirExist) {
+                return currentDirExist;
+            }
+            int mr = maxRecursionLeve - 1;
+            for (File f : dir.listFiles()) {
+                if (f.isDirectory()) {
+                    boolean childDirExist = existFile(f, fileName, mr);
+                    if (childDirExist) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * dir指定的文件夹是否存在fileName指定的文件
+     * 注意：即时存放fileName的文件夹也是返回false
+     *
+     * @param dir
+     * @param fileName
+     * @return
+     */
+    public static boolean existFile(String dir, String fileName) {
+
+        if (StringUtils.isNotEmpty(dir)) {
+            return existFile(new File(dir), fileName);
+        }
+        return false;
+    }
+
+    /**
+     * dir指定的文件夹是否存在fileName指定的文件
+     * 注意：即时存放fileName的文件夹也是返回false
+     *
+     * @param dir
+     * @param fileName
+     * @return
+     */
+    public static boolean existFile(File dir, String fileName) {
+
+        if (dir == null || !dir.exists() || !dir.isDirectory() || StringUtils.isEmpty(fileName)) {
+            return false;
+        }
+        for (File f : dir.listFiles()) {
+            if (f.isFile() && StringUtils.equals(f.getName(), fileName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

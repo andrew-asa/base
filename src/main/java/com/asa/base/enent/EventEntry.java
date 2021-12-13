@@ -1,6 +1,8 @@
 package com.asa.base.enent;
 
 
+import com.asa.base.lang.Filter;
+
 /**
  * 事件模型的入口
  */

@@ -99,7 +99,39 @@ public class FilenameUtilsTest {
 
     @Test
     public void getPath() {
+        assertNull(FilenameUtils.getPath(null));
+        assertEquals("", FilenameUtils.getPath("noseperator.inthispath"));
+        assertEquals("", FilenameUtils.getPath("/noseperator.inthispath"));
+        assertEquals("", FilenameUtils.getPath("\\noseperator.inthispath"));
+        assertEquals("a/b/", FilenameUtils.getPath("a/b/c.txt"));
+        assertEquals("a/b/", FilenameUtils.getPath("a/b/c"));
+        assertEquals("a/b/c/", FilenameUtils.getPath("a/b/c/"));
+        assertEquals("a\\b\\", FilenameUtils.getPath("a\\b\\c"));
 
+        assertNull(FilenameUtils.getPath(":"));
+        assertNull(FilenameUtils.getPath("1:/a/b/c.txt"));
+        assertNull(FilenameUtils.getPath("1:"));
+        assertNull(FilenameUtils.getPath("1:a"));
+        assertNull(FilenameUtils.getPath("///a/b/c.txt"));
+        assertNull(FilenameUtils.getPath("//a"));
+
+        assertEquals("", FilenameUtils.getPath(""));
+        assertEquals("", FilenameUtils.getPath("C:"));
+        assertEquals("", FilenameUtils.getPath("C:/"));
+        assertEquals("", FilenameUtils.getPath("//server/"));
+        assertEquals("", FilenameUtils.getPath("~"));
+        assertEquals("", FilenameUtils.getPath("~/"));
+        assertEquals("", FilenameUtils.getPath("~user"));
+        assertEquals("", FilenameUtils.getPath("~user/"));
+
+        assertEquals("a/b/", FilenameUtils.getPath("a/b/c.txt"));
+        assertEquals("a/b/", FilenameUtils.getPath("/a/b/c.txt"));
+        assertEquals("", FilenameUtils.getPath("C:a"));
+        assertEquals("a/b/", FilenameUtils.getPath("C:a/b/c.txt"));
+        assertEquals("a/b/", FilenameUtils.getPath("C:/a/b/c.txt"));
+        assertEquals("a/b/", FilenameUtils.getPath("//server/a/b/c.txt"));
+        assertEquals("a/b/", FilenameUtils.getPath("~/a/b/c.txt"));
+        assertEquals("a/b/", FilenameUtils.getPath("~user/a/b/c.txt"));
     }
 
     @Test
@@ -264,10 +296,5 @@ public class FilenameUtilsTest {
 
     }
 
-    @Ignore
-    @Test
-    public void systemFilePathToString() throws IOException {
 
-        System.out.println(FileUtils.systemFilePathToString("/etc/hosts"));
-    }
 }

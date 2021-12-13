@@ -1,5 +1,6 @@
 package com.asa.base.enent;
 
+import com.asa.base.lang.Filter;
 import com.asa.base.log.LoggerFactory;
 import com.asa.base.utils.AssistUtils;
 
